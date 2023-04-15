@@ -1,9 +1,10 @@
 import React from 'react';
 import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';
-import {LOGIN} from "navigation/CONSTANTS";
+import {HOMEPAGE, LOGIN} from "navigation/CONSTANTS";
 import {NotFound} from './NotFound';
 import RequireAuth from "./RequireAuth";
 import Login from 'pages/login';
+import Home from 'pages/home';
 
 const ROLES = {
     TOURIST: 'TOURIST',
@@ -16,6 +17,7 @@ export const RouterConfig = () => {
                 <Routes>
                     {/* public routes */}
                     <Route path={LOGIN} element={<Login />} />
+                    <Route path={HOMEPAGE} element={<Home />} />
 
                     {/* private routes */}
                     <Route element={<RequireAuth allowedRoles={[ROLES.TOURIST]} />}>
