@@ -1,6 +1,6 @@
 import React from 'react';
 import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';
-import {LOGIN} from "navigation/CONSTANTS";
+import {ROOT, LOGIN} from "navigation/CONSTANTS";
 import {NotFound} from './NotFound';
 import RequireAuth from "./RequireAuth";
 import Login from 'pages/login';
@@ -15,6 +15,7 @@ export const RouterConfig = () => {
             <Router >
                 <Routes>
                     {/* public routes */}
+                    <Route path={ROOT} element={<Login />} />
                     <Route path={LOGIN} element={<Login />} />
 
                     {/* private routes */}
