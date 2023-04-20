@@ -4,6 +4,11 @@ const login = async (credentials) => {
     return await travelPointsAxios.post("user/authenticate", JSON.stringify(credentials));
 }
 
+const deleteLandmark = async (id) => {
+    return await travelPointsAxios.delete(`landmark/${id}`)
+}
+
 export {
     login,
+    deleteLandmark
 };
