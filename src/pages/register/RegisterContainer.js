@@ -37,7 +37,6 @@ export function RegisterContainer(props) {
     return (
         <div>
             <RegisterView
-                isActive={props.isActive}
                 errorInputRef={errorInputRef}
                 email={email}
                 password={password}
