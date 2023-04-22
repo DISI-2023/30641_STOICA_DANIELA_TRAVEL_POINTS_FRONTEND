@@ -23,10 +23,6 @@ const getLandmarks = async (category, location) => {
     return await travelPointsAxios.get(url)
 }
 
-const addReview = async (request) => {
-    return await travelPointsAxios.post(`review`, JSON.stringify(request));
-}
-
 export {
     login,
     deleteLandmark,
