@@ -1,0 +1,36 @@
+.box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+}
+
+.card {
+    margin-bottom: 1rem;
+}
+
+.rowBox {
+    margin-top: 1rem;
+}
+
+.title {
+    font-style: italic;
+    font-weight: bold;
+    color: darkblue;
+    font-size: large;
+}
+
+.image {
+    padding: 10px;
+    width: 12rem;
+    height: 12rem;
+}
+
+.cardButton {
+    left: 25%;
+    width: 10rem;
+}
+
+.containerButton {
+    margin-bottom: 10px !important;
+}

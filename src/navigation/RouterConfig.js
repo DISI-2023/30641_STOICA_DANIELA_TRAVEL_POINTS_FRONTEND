@@ -1,10 +1,11 @@
 import React from 'react';
 import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';
-import {HOMEPAGE, LOGIN, ROOT} from "navigation/CONSTANTS";
+import {HOMEPAGE, LANDMARKS, LOGIN, ROOT} from "navigation/CONSTANTS";
 import {NotFound} from './NotFound';
 import RequireAuth from "./RequireAuth";
 import Login from 'pages/login';
 import Home from 'pages/home';
+import Landmarks from 'pages/landmark'
 
 const ROLES = {
     TOURIST: 'TOURIST',
@@ -19,6 +20,7 @@ export const RouterConfig = () => {
                     <Route path={ROOT} element={<Login />} />
                     <Route path={LOGIN} element={<Login />} />
                     <Route path={HOMEPAGE} element={<Home />} />
+                    <Route path={LANDMARKS} element={<Landmarks />} />
 
                     {/* private routes */}
                     <Route element={<RequireAuth allowedRoles={[ROLES.TOURIST]} />}>
