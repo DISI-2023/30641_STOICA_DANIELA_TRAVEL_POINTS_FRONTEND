@@ -2,7 +2,7 @@ import React from "react";
 import * as API from "services/api/travelPointsService";
 import AddReviewView from "./AddReviewView";
 
-const AddReviewContainer = () => {
+export function AddReviewContainer() {
     const buttonHandle = async (request) => {
         return await API.addReview(request)
     }
@@ -11,5 +11,3 @@ const AddReviewContainer = () => {
         <AddReviewView buttonHandle={buttonHandle}/>
     );
 }
-
-export default AddReviewContainer;
