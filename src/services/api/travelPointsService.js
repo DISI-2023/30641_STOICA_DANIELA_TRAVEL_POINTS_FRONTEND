@@ -26,10 +26,15 @@ const getLandmarks = async (category, location) => {
     return await travelPointsAxios.get(url)
 }
 
+const getLandmarksFromWishlist = async(id) => {
+    return await travelPointsAxios.get(`wishlist/${id}`)
+}
+
 export {
     login,
     deleteLandmark,
     addReview,
     getLandmarks,
+    getLandmarksFromWishlist,
     register
 };
