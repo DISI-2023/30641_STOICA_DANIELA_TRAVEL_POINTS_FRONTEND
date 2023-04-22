@@ -8,6 +8,10 @@ const deleteLandmark = async (id) => {
     return await travelPointsAxios.delete(`landmark/${id}`)
 }
 
+const addReview = async (request) => {
+    return await travelPointsAxios.post(`review`, JSON.stringify(request));
+}
+
 const getLandmarks = async (category, location) => {
     let url = "landmark?";
     if (category != null) {
@@ -22,5 +26,6 @@ const getLandmarks = async (category, location) => {
 export {
     login,
     deleteLandmark,
+    addReview,
     getLandmarks
 };

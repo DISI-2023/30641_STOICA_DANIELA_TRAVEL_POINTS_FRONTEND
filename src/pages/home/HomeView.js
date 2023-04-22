@@ -1,5 +1,6 @@
 import style from './Home.module.css';
 import DeleteButton from "components/buttons/delete";
+import AddReview from "components/forms";
 
 const HomeView = () => {
     const landmarkId = 3; //delete this in final version
@@ -19,6 +20,7 @@ const HomeView = () => {
                 */}
                 <DeleteButton landmarkId={landmarkId}/>
             </div>
+            <AddReview/>
         </>
     );
 }
