@@ -109,3 +109,15 @@
     color: red;
     font-size: 16px;
 }
+
+.redirect_link_container {
+    padding: 15px;
+}
+
+.redirect_link {
+    color: white;
+}
+
+.redirect_link:hover {
+    color: rgba(255, 255, 255, 0.7);
+}

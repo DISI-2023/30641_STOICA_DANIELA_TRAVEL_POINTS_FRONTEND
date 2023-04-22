@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import LoginView from "./LoginView";
 import {useLocation, useNavigate} from "react-router-dom";
-import {HOMEPAGE} from "navigation/CONSTANTS";
+import {HOMEPAGE, REGISTER} from "navigation/CONSTANTS";
 import * as API from "services/api/travelPointsService";
 
 export function LoginContainer(props) {
@@ -51,6 +51,7 @@ export function LoginContainer(props) {
                 emailInputChangeHandle={setEmail}
                 passwordInputChangeHandle={setPassword}
                 loginFormSubmitHandle={login}
+                redirectToRegisterPage={() => navigate(REGISTER)}
             />
         </div>
     );
