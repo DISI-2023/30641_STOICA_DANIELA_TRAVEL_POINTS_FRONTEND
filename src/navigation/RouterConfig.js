@@ -1,10 +1,11 @@
 import React from 'react';
 import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';
-import {HOMEPAGE, LANDMARKS, LOGIN, ROOT} from "navigation/CONSTANTS";
+import {HOMEPAGE, LOGIN, ROOT, REGISTER, LANDMARKS} from "navigation/CONSTANTS";
 import {NotFound} from './NotFound';
 import RequireAuth from "./RequireAuth";
 import Login from 'pages/login';
 import Home from 'pages/home';
+import Register from 'pages/register';
 import Landmarks from 'pages/landmark'
 
 const ROLES = {
@@ -20,6 +21,7 @@ export const RouterConfig = () => {
                     <Route path={ROOT} element={<Login />} />
                     <Route path={LOGIN} element={<Login />} />
                     <Route path={HOMEPAGE} element={<Home />} />
+                    <Route path={REGISTER} element={<Register />} />
                     <Route path={LANDMARKS} element={<Landmarks />} />
 
                     {/* private routes */}

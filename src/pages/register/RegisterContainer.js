@@ -1,39 +1,34 @@
-import React, {useEffect, useRef, useState} from "react";
-import LoginView from "./LoginView";
+import React, {useRef, useState} from "react";
+import RegisterView from "./RegisterView";
 import {useLocation, useNavigate} from "react-router-dom";
-import {HOMEPAGE, REGISTER} from "navigation/CONSTANTS";
+import {HOMEPAGE} from "navigation/CONSTANTS";
 import * as API from "services/api/travelPointsService";
 
-export function LoginContainer(props) {
+export function RegisterContainer(props) {
     const navigate = useNavigate();
     const location = useLocation ();
     const from = location.state?.from?.pathname;
 
-    const emailInputRef = useRef();
     const errorInputRef = useRef();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
-    useEffect(() => {
-        emailInputRef.current.focus();
-    }, [])
-
-    const login = async (e) => {
+    const register = async (e) => {
         e.preventDefault();
 
         try {
-            const {data: user} = await API.login({ email: email, password: password })
-
-            localStorage.setItem('userDetails', JSON.stringify(user))
+            await API.register({ email: email, name: name, password: password})
 
             redirect();
         } catch ({response: error}) {
-            setErrorMessage(error.status === 500 ? error.data.message : 'Login Failed');
+            setErrorMessage(error.status === 500 ? error.data.message : 'Register Failed');
 
             setPassword('');
             setEmail('');
+            setName('');
         }
     }
 
@@ -41,17 +36,16 @@ export function LoginContainer(props) {
 
     return (
         <div>
-            <LoginView
-                isActive={props.isActive}
-                emailInputRef={emailInputRef}
+            <RegisterView
                 errorInputRef={errorInputRef}
                 email={email}
                 password={password}
+                name={name}
                 errorMessage={errorMessage}
                 emailInputChangeHandle={setEmail}
                 passwordInputChangeHandle={setPassword}
-                loginFormSubmitHandle={login}
-                redirectToRegisterPage={() => navigate(REGISTER)}
+                nameInputChangeHandle={setName}
+                registerFormSubmitHandle={register}
             />
         </div>
     );

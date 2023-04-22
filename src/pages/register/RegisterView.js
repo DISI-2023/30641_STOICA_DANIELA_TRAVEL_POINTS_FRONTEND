@@ -1,17 +1,26 @@
-import styles from './Login.module.css';
-const LoginView = (props) => {
+import styles from './Register.module.css';
+
+const RegisterView = (props) => {
     return (
         <div className={styles.container}>
-            <form className={styles.form} id="b-form" onSubmit={props.loginFormSubmitHandle}>
-                <h2 className={styles.title}>Sign in to Website</h2>
+            <form className={styles.form} id="b-form" onSubmit={props.registerFormSubmitHandle}>
+                <h2 className={styles.title}>Register on Travel Points</h2>
                 <input
                     className={styles.form__input}
                     placeholder="Email"
                     type="email"
                     id="email"
-                    ref={props.emailInputRef}
                     onChange={(e) => props.emailInputChangeHandle(e.target.value)}
                     value={props.email}
+                    required
+                />
+                 <input
+                    className={styles.form__input}
+                    placeholder="Name"
+                    type="name"
+                    id="name"
+                    onChange={(e) => props.nameInputChangeHandle(e.target.value)}
+                    value={props.name}
                     required
                 />
                 <input
@@ -24,20 +33,10 @@ const LoginView = (props) => {
                     required
                 />
                 <label className={styles.text_red}>{props.errorMessage}</label>
-                <button className={["form__button", styles.button, "submit"].join(" ")}>SIGN IN</button>
-                <div className={styles.redirect_link_container}>
-                    <p>Don't have an account yet?
-                        <span
-                            className={styles.redirect_link}
-                            onClick={props.redirectToRegisterPage}
-                        >
-                            Create an account
-                        </span>
-                    </p>
-                </div>
+                <button className={["form__button", styles.button, "submit"].join(" ")}>REGISTER</button>
             </form>
         </div>
     );
 }
 
-export default LoginView
+export default RegisterView
