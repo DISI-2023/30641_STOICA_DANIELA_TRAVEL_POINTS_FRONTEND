@@ -1,0 +1,16 @@
+.container {
+    position: relative;
+    background: #fff;
+    padding: 15px;
+    width: 17rem;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+}
+
+.box {
+    resize: none;
+    textDecoration: none;
+    height: 5rem;
+    width: 15rem;
+    border-radius: 5px;
+}
