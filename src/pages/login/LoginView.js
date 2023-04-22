@@ -1,5 +1,4 @@
 import styles from './Login.module.css';
-
 const LoginView = (props) => {
     return (
         <div className={styles.container}>
@@ -26,6 +25,16 @@ const LoginView = (props) => {
                 />
                 <label className={styles.text_red}>{props.errorMessage}</label>
                 <button className={["form__button", styles.button, "submit"].join(" ")}>SIGN IN</button>
+                <div className={styles.redirect_link_container}>
+                    <p>Don't have an account yet?
+                        <span
+                            className={styles.redirect_link}
+                            onClick={props.redirectToRegisterPage}
+                        >
+                            Create an account
+                        </span>
+                    </p>
+                </div>
             </form>
         </div>
     );
