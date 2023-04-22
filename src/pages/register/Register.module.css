@@ -1,0 +1,111 @@
+*, *::after, *::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+
+    --primary-color: #86C232;
+    --second-color: #61892F;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    padding: 25px;
+    background-color: var(--primary-color);
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 500px;
+    height: 400px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+.form__icon {
+    object-fit: contain;
+    width: 30px;
+    margin: 0 5px;
+    opacity: 0.5;
+    transition: 0.15s;
+}
+
+.form__icon:hover {
+    opacity: 1;
+    transition: 0.15s;
+    cursor: pointer;
+}
+
+.form__input {
+    width: 350px;
+    height: 40px;
+    margin: 4px 0;
+    padding-left: 25px;
+    font-size: 13px;
+    border: none;
+    outline: none;
+    font-family: "Montserrat", sans-serif;
+    background-color: #ecf0f3;
+    transition: 0.25s ease;
+    border-radius: 8px;
+    box-shadow: inset 2px 2px 4px var(--primary-color),
+                inset -2px -2px 4px var(--primary-color);
+}
+
+.form__input:focus {
+    box-shadow: inset 4px 4px 4px var(--primary-color),
+                inset -4px -4px 4px var(--primary-color);
+}
+
+.form__span {
+    margin-top: 30px;
+    margin-bottom: 12px;
+}
+
+.form__link {
+    color: #181818;
+    font-size: 15px;
+    margin-top: 25px;
+    border-bottom: 1px solid #a0a5a8;
+    line-height: 2;
+}
+
+.title {
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 3;
+    color: #ffffff;
+}
+
+.button {
+    width: 180px;
+    height: 50px;
+    border-radius: 25px;
+    margin-top: 50px;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    background-color: #6B6E70;
+    color: #f9f9f9;
+    border: none;
+    outline: none;
+}
+
+.button:hover{
+    box-shadow: 4px 4px 8px rgba(255, 255, 255, 0.3),
+    -4px -4px 8px rgba(255, 255, 255, 0.3);
+}
+
+.text_red {
+    color: red;
+    font-size: 16px;
+}
