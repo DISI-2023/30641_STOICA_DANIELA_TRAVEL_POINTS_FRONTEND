@@ -6,10 +6,19 @@ import style from './LandmarkCard.module.css';
 import mock from '../../mock.png'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
+import React, { useState } from "react";
+import LandmarkDetails from "pages/landmark/LandmarkDetails";
 
 const LandmarkCard = ({landmark}) => {
+    const [show, setShow] = useState(false);
+    
+    const onViewDetails = () => {
+        setShow(true);
+    }
+
     return (
-        <Card sx={{minWidth: 275}} className={style.card}>
+        <div>
+        <Card sx={{maxWidth: 325}} className={style.card}>
             <CardActionArea>
                 <CardMedia  // for now the landmark's image is not saved properly.
                     component="img"
@@ -32,13 +41,17 @@ const LandmarkCard = ({landmark}) => {
             </CardActionArea>
             <br/>
             <div className={style.containerButton}>
-                <Button className={style.cardButton} variant="contained">View Details</Button>
+                <Button onClick={onViewDetails} className={style.cardButton} variant="contained">View Details</Button>
             </div>
             <div className={style.containerButton}>
                 <Button className={style.cardButton} variant="contained">Review</Button>
                 <FavoriteBorderIcon style={{position: "absolute", marginLeft: "8rem"}}/>
             </div>
         </Card>
+
+        <LandmarkDetails show={show} onHide={()=> setShow(false)} landmark = {landmark}/>
+        </div>
+
     )
 }
 
