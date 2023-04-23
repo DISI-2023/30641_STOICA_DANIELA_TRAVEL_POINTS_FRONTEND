@@ -7,7 +7,7 @@ const AddLandmarkButtonView = ({onChangeShow}) => {
     }
 
     return (
-        <Button style={{width: "12rem", height: "3rem", margin: "1rem 0 0 1rem", backgroundColor: "black"}} variant="contained" endIcon={<AddToPhotosIcon />} onClick={handleAddButton}>
+        <Button style={{width: "12rem", height: "3rem", margin: "1rem 10rem", backgroundColor: "black"}} variant="contained" endIcon={<AddToPhotosIcon />} onClick={handleAddButton}>
             Add landmark
         </Button>
     );
