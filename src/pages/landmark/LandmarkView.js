@@ -8,7 +8,8 @@ const LandmarkView = ({landmarks}) => {
                 <Col key={landmark.id}
                      style={{display: "inline-block", alignItems: "center", justifyContent: "center", margin: "1rem"}}
                 >
-                    <LandmarkCard landmark={landmark}/>
+                    <LandmarkCard landmark={landmark} />
+
                 </Col>
             ))}
         </Row>
