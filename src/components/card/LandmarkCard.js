@@ -6,9 +6,8 @@ import style from './LandmarkCard.module.css';
 import mock from '../../mock.png'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
-import React from 'react';
+import React, {useState} from 'react';
 import * as API from "services/api/travelPointsService";
-import React, { useState } from "react";
 import LandmarkDetails from "pages/landmark/LandmarkDetails";
 
 const LandmarkCard = ({landmark}) => {
@@ -29,7 +28,7 @@ const LandmarkCard = ({landmark}) => {
 
     return (
         <div>
-        <Card sx={{maxWidth: 325}} className={style.card}>
+        <Card sx={{width: 325}} className={style.card}>
             <CardActionArea>
                 <CardMedia  // for now the landmark's image is not saved properly.
                     component="img"
@@ -52,7 +51,7 @@ const LandmarkCard = ({landmark}) => {
             </CardActionArea>
             <br/>
             <div className={style.containerButton}>
-                <Button onClick={onViewDetails} className={style.cardButton} variant="contained">View Details</Button>
+                <Button style={{backgroundColor: "black"}} onClick={onViewDetails} className={style.cardButton} variant="contained">View Details</Button>
             </div>
             <div className={style.containerButton}>
                 <Button className={style.cardButton} variant="contained">Review</Button>
