@@ -36,6 +36,10 @@ const getLandmarks = async (category, location) => {
     return await travelPointsAxios.get(url)
 }
 
+const addLandmark = async (request) => {
+    return await travelPointsAxios.post(`landmark`, JSON.stringify(request));
+}
+
 const getLandmarksFromWishlist = async(id) => {
     return await travelPointsAxios.get(`wishlist/${id}`)
 }
@@ -48,4 +52,5 @@ export {
     register,
     addToFavourite,
     getLandmarksFromWishlist,
+    addLandmark
 };
