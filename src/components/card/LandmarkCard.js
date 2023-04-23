@@ -6,9 +6,8 @@ import style from './LandmarkCard.module.css';
 import mock from '../../mock.png'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
-import React from 'react';
+import React, {useState} from 'react';
 import * as API from "services/api/travelPointsService";
-import React, { useState } from "react";
 import LandmarkDetails from "pages/landmark/LandmarkDetails";
 
 const LandmarkCard = ({landmark}) => {
