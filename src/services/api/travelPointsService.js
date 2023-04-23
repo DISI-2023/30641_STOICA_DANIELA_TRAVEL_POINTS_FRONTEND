@@ -49,7 +49,6 @@ export {
     deleteLandmark,
     addReview,
     getLandmarks,
-    register,
     addToFavourite,
     getLandmarksFromWishlist,
     register,
