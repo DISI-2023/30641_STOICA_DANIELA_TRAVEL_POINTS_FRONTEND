@@ -17,10 +17,10 @@ const addReview = async (request) => {
 
 const getLandmarks = async (category, location) => {
     let url = "landmark?";
-    if (category != null) {
+    if (category != null && category !== '') {
         url += "category=" + category + "&";
     }
-    if (location != null) {
+    if (location != null && location !== '') {
         url += "location=" + location;
     }
     return await travelPointsAxios.get(url)
