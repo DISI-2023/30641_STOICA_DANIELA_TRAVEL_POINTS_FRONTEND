@@ -52,5 +52,6 @@ export {
     register,
     addToFavourite,
     getLandmarksFromWishlist,
+    register,
     addLandmark
 };
