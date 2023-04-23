@@ -1,27 +1,61 @@
 import LandmarkCard from "components/card/LandmarkCard";
 import {Col, Row} from "react-bootstrap";
+import AddLandmark from "components/buttons/add";
+import AddLandmarkModal from "../../components/buttons/add/AddLandmarkModal";
 import React from "react";
 import Button from "@mui/material/Button";
 
-const LandmarkView = ({landmarks, onLocationChanged, onCategoryChanged, onFilter}) => {
+const LandmarkView = ({
+                          landmarks,
+                          addLandmark,
+                          show,
+                          onChangeShow,
+                          onChangeIsAddedNewLandmark,
+                          name,
+                          location,
+                          textDescription,
+                          category,
+                          price,
+                          nameInputChangeHandle,
+                          locationInputChangeHandle,
+                          textDescriptionInputChangeHandle,
+                          categoryInputChangeHandle,
+                          priceInputChangeHandle,
+                          onFilter
+                      }) => {
+    const isAdmin = JSON.parse(localStorage.getItem('userDetails'))?.role === "ADMIN";
+
     return (
         <div>
-        <label>Location: </label>
-        <input placeholder="Location"  onChange={(e) => onLocationChanged(e.target.value)}></input>
-        <label>Category: </label>
-        <input placeholder="Category" onChange={(e) => onCategoryChanged(e.target.value)}></input>
-        <Button onClick={onFilter}> Filter! </Button>
-
-        <Row>
-            {landmarks.map((landmark) => (
-                <Col key={landmark.id}
-                     style={{display: "inline-block", alignItems: "center", justifyContent: "center", margin: "1rem"}}
-                >
-                    <LandmarkCard landmark={landmark} />
-
-                </Col>
-            ))}
-        </Row>
+            <label>Location: </label>
+            <input placeholder="Location" onChange={(e) => locationInputChangeHandle(e.target.value)}></input>
+            <label>Category: </label>
+            <input placeholder="Category" onChange={(e) => categoryInputChangeHandle(e.target.value)}></input>
+            <Button onClick={onFilter}> Filter! </Button>
+            {isAdmin && <AddLandmark onChangeShow={onChangeShow} addLandmark={addLandmark}
+                                     onChangeIsAddedNewLandmark={onChangeIsAddedNewLandmark}/>}
+            <Row>
+                {landmarks.map((landmark) => (
+                    <Col key={landmark.id}
+                         style={{
+                             display: "inline-block",
+                             alignItems: "center",
+                             justifyContent: "center",
+                             margin: "1rem"
+                         }}
+                    >
+                        <LandmarkCard landmark={landmark}/>
+                    </Col>
+                ))}
+            </Row>
+            <AddLandmarkModal show={show} onHide={() => onChangeShow(false)}
+                              onChangeIsAddedNewLandmark={onChangeIsAddedNewLandmark} addLandmark={addLandmark}
+                              name={name} location={location} textDescription={textDescription}
+                              category={category} price={price} nameInputChangeHandle={nameInputChangeHandle}
+                              locationInputChangeHandle={locationInputChangeHandle}
+                              textDescriptionInputChangeHandle={textDescriptionInputChangeHandle}
+                              categoryInputChangeHandle={categoryInputChangeHandle}
+                              priceInputChangeHandle={priceInputChangeHandle}/>
         </div>
     )
 }

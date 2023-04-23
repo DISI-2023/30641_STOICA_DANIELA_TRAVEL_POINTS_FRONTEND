@@ -4,8 +4,13 @@ import LandmarkView from "./LandmarkView";
 
 export function LandmarkContainer() {
     const [landmarks, setLandmarks] = useState([]);
-    const [location, setLocation] = useState(null);
-    const [category, setCategory] = useState(null);
+    const [show, setShow] = useState(false);
+    const [isAddedNewLandmark, setIsAddedNewLandmark] = useState(false);
+    const [name, setName] = useState('');
+    const [location, setLocation] = useState('');
+    const [textDescription, setTextDescription] = useState('');
+    const [category, setCategory] = useState('');
+    const [price, setPrice] = useState(0.0);
     const [filter, setFilter] = useState(false);
 
     const getLandmarks = async () => {
@@ -16,27 +21,43 @@ export function LandmarkContainer() {
             console.log(error);
         }
     }
-    const onCategoryChanged = (value) => {
-        setCategory(value);
-    }
-    const onLocationChanged = (value) => {
-        setLocation(value);
+
+    const addLandmark = async () => {
+        const request = {name: name, location: location, textDescription: textDescription, category: category, price: price}
+        setName('')
+        setLocation('')
+        setTextDescription('')
+        setCategory('')
+        setPrice(0.0)
+        return await API.addLandmark(request)
     }
 
     const onFilter = async () => {
-       setFilter((prev)=> !prev)
+        setFilter((prev)=> !prev)
     }
 
     useEffect(() => {
         getLandmarks();
-    }, [filter])
+    }, [isAddedNewLandmark, filter])
 
     return (
         <div>
             <LandmarkView
                 landmarks={landmarks}
-                onLocationChanged={onLocationChanged}
-                onCategoryChanged={onCategoryChanged}
+                addLandmark={addLandmark}
+                show={show}
+                onChangeShow={setShow}
+                onChangeIsAddedNewLandmark={setIsAddedNewLandmark}
+                name={name}
+                location={location}
+                textDescription={textDescription}
+                category={category}
+                price={price}
+                nameInputChangeHandle={setName}
+                locationInputChangeHandle={setLocation}
+                textDescriptionInputChangeHandle={setTextDescription}
+                categoryInputChangeHandle={setCategory}
+                priceInputChangeHandle={setPrice}
                 onFilter={onFilter}
             />
         </div>
