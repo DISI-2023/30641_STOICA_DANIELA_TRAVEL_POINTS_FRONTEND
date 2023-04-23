@@ -51,7 +51,7 @@ const LandmarkCard = ({landmark}) => {
             </CardActionArea>
             <br/>
             <div className={style.containerButton}>
-                <Button style={{backgroundColor: "black"}} onClick={onViewDetails} className={style.cardButton} variant="contained">View Details</Button>
+                <Button className={style.cardButton} style={{backgroundColor: "black"}} onClick={onViewDetails} variant="contained">View Details</Button>
             </div>
             <div className={style.containerButton}>
                 <Button className={style.cardButton} variant="contained" style={{backgroundColor: "black"}}>Review</Button>
