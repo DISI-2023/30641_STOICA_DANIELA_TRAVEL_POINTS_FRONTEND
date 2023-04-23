@@ -14,6 +14,16 @@ const register = async (credentials) => {
 const addReview = async (request) => {
     return await travelPointsAxios.post(`review`, JSON.stringify(request));
 }
+const addToFavourite = async (landmarkId, userId) => {
+    let url = "wishlist?";
+    if (landmarkId != null) {
+        url += "landmarkId=" + landmarkId + "&";
+    }
+    if (userId != null) {
+        url += "userId=" + userId;
+    }
+    return await travelPointsAxios.post(url)
+}
 
 const getLandmarks = async (category, location) => {
     let url = "landmark?";
@@ -35,6 +45,7 @@ export {
     deleteLandmark,
     addReview,
     getLandmarks,
+    register,
+    addToFavourite,
     getLandmarksFromWishlist,
-    register
 };

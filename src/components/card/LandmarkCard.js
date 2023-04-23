@@ -6,14 +6,25 @@ import style from './LandmarkCard.module.css';
 import mock from '../../mock.png'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
+import React from 'react';
+import * as API from "services/api/travelPointsService";
 import React, { useState } from "react";
 import LandmarkDetails from "pages/landmark/LandmarkDetails";
 
 const LandmarkCard = ({landmark}) => {
     const [show, setShow] = useState(false);
-    
+
     const onViewDetails = () => {
         setShow(true);
+    }
+
+    const onAddFav = async (landmark) => {
+        const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+        if(userDetails != null) {
+
+            await API.addToFavourite(landmark.id, userDetails.id);
+            window.alert('You added an item to wishlist!')
+        }
     }
 
     return (
@@ -45,7 +56,7 @@ const LandmarkCard = ({landmark}) => {
             </div>
             <div className={style.containerButton}>
                 <Button className={style.cardButton} variant="contained">Review</Button>
-                <FavoriteBorderIcon style={{position: "absolute", marginLeft: "8rem"}}/>
+                <FavoriteBorderIcon onClick={async () => onAddFav(landmark)} style={{position: "absolute", marginLeft: "8rem"}}/>
             </div>
         </Card>
 
