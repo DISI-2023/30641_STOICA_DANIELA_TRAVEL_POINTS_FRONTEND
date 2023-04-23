@@ -1,0 +1,1 @@
+export {WishlistContainer as default} from "./WishlistContainer";
