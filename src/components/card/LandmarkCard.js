@@ -9,7 +9,7 @@ import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 
 const LandmarkCard = ({landmark}) => {
     return (
-        <Card sx={{minWidth: 275}} className={style.card}>
+        <Card sx={{width: 325}} className={style.card}>
             <CardActionArea>
                 <CardMedia  // for now the landmark's image is not saved properly.
                     component="img"
@@ -32,10 +32,10 @@ const LandmarkCard = ({landmark}) => {
             </CardActionArea>
             <br/>
             <div className={style.containerButton}>
-                <Button className={style.cardButton} variant="contained">View Details</Button>
+                <Button style={{backgroundColor: "black"}} className={style.cardButton} variant="contained">View Details</Button>
             </div>
             <div className={style.containerButton}>
-                <Button className={style.cardButton} variant="contained">Review</Button>
+                <Button style={{backgroundColor: "black"}} className={style.cardButton} variant="contained">Review</Button>
                 <FavoriteBorderIcon style={{position: "absolute", marginLeft: "8rem"}}/>
             </div>
         </Card>

@@ -17,7 +17,7 @@ export const RouterConfig = () => {
             <Router >
                 <Routes>
                     {/* public routes */}
-                    <Route path={ROOT} element={<Login />} />
+                    <Route path={ROOT} element={<Home />} />
                     <Route path={LOGIN} element={<Login />} />
                     <Route path={HOMEPAGE} element={<Home />} />
                     <Route path={LANDMARKS} element={<Landmarks />} />
