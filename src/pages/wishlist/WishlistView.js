@@ -8,7 +8,7 @@ const WishlistView = ({landmarks}) => {
                 <Col key={landmark.id}
                      style={{display: "inline-block", alignItems: "center", justifyContent: "center", margin: "1rem"}}
                 >
-                    <LandmarkCard landmark={landmark}/>
+                    <LandmarkCard data={landmark}/>
                 </Col>
             ))}
         </Row>

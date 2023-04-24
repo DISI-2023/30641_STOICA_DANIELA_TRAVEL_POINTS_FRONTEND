@@ -34,3 +34,11 @@
 .containerButton {
     margin-bottom: 10px !important;
 }
+
+.containerAdminButtons {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: flex-end !important;
+    margin: 10px !important;
+
+}

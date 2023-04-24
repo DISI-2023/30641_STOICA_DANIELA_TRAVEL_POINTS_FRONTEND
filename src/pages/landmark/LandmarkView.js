@@ -21,7 +21,7 @@ const LandmarkView = ({
                           textDescriptionInputChangeHandle,
                           categoryInputChangeHandle,
                           priceInputChangeHandle,
-                          onFilter
+                          onFilter,
                       }) => {
     const isAdmin = JSON.parse(localStorage.getItem('userDetails'))?.role === "ADMIN";
 
@@ -44,7 +44,7 @@ const LandmarkView = ({
                              margin: "1rem"
                          }}
                     >
-                        <LandmarkCard landmark={landmark}/>
+                        <LandmarkCard data={landmark}/>
                     </Col>
                 ))}
             </Row>
