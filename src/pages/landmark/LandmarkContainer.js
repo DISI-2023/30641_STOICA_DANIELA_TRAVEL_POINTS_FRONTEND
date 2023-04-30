@@ -36,6 +36,13 @@ export function LandmarkContainer() {
         setFilter((prev)=> !prev)
     }
 
+    const deleteLandmarkButtonHandle = async (_, landmarkId) => {
+        setLandmarks(prevState => {
+            return prevState.filter(landmark => landmark.id !== landmarkId)
+        })
+        return await API.deleteLandmark(landmarkId)
+    }
+
     useEffect(() => {
         getLandmarks();
     }, [isAddedNewLandmark, filter])
@@ -59,6 +66,7 @@ export function LandmarkContainer() {
                 categoryInputChangeHandle={setCategory}
                 priceInputChangeHandle={setPrice}
                 onFilter={onFilter}
+                deleteLandmarkButtonHandle={deleteLandmarkButtonHandle}
             />
         </div>
     );

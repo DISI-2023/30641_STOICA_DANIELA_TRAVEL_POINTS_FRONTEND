@@ -31,6 +31,12 @@
     width: 10rem;
 }
 
+.smallCardButton {
+    width: 6rem;
+    margin: 5px !important;
+    padding: 6px 3px !important;
+}
+
 .containerButton {
     margin-bottom: 10px !important;
 }

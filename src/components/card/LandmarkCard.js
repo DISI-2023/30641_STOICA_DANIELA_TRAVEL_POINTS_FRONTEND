@@ -12,7 +12,7 @@ import * as API from "services/api/travelPointsService";
 import LandmarkDetails from "pages/landmark/LandmarkDetails";
 import EditLandmarkModal from "components/editLandmarkForm/EditLandmarkModal";
 
-const LandmarkCard = ({data}) => {
+const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
     const isAdmin = JSON.parse(localStorage.getItem('userDetails'))?.role === "ADMIN";
     const [landmark, setLandmark] = useState(data);
     const [show, setShow] = useState(false);
@@ -70,11 +70,6 @@ const LandmarkCard = ({data}) => {
     return (
         <div>
             <Card sx={{width: 325}} className={style.card}>
-                {isAdmin &&
-                    <div className={style.containerAdminButtons}>
-                        <EditIcon onClick={openEditModal} style={{width: "20px", margin: "5px"}}/>
-                    </div>
-                }
                 <CardActionArea>
                     <CardMedia  // for now the landmark's image is not saved properly.
                         component="img"
@@ -99,10 +94,37 @@ const LandmarkCard = ({data}) => {
                 <div className={style.containerButton}>
                     <Button className={style.cardButton} style={{backgroundColor: "black"}} onClick={onViewDetails} variant="contained">View Details</Button>
                 </div>
-                <div className={style.containerButton}>
-                    <Button className={style.cardButton} variant="contained" style={{backgroundColor: "black"}}>Review</Button>
-                    <FavoriteBorderIcon onClick={async () => onAddFav(landmark)} style={{position: "absolute", marginLeft: "8rem"}}/>
-                </div>
+                {isAdmin ?
+                    <div className={style.containerButton}>
+                        <Button
+                            className={style.smallCardButton}
+                            variant="contained"
+                            style={{backgroundColor: "green"}}
+                            onClick={openEditModal}
+                        >
+                            Update
+                        </Button>
+                        <Button
+                            className={style.smallCardButton}
+                            variant="contained"
+                            style={{backgroundColor: "blue"}}
+                        >
+                            Add Offer
+                        </Button>
+                        <Button
+                            className={style.smallCardButton}
+                            variant="contained"
+                            style={{backgroundColor: "red"}}
+                            onClick={e => deleteLandmarkButtonHandle(e, landmark.id)}
+                        >
+                            Delete
+                        </Button>
+                    </div>
+                    : <div className={style.containerButton}>
+                        <Button className={style.cardButton} variant="contained" style={{backgroundColor: "black"}}>Review</Button>
+                        <FavoriteBorderIcon onClick={async () => onAddFav(landmark)} style={{position: "absolute", marginLeft: "8rem"}}/>
+                    </div>
+                }
             </Card>
 
             <LandmarkDetails show={show} onHide={()=> setShow(false)} landmark = {landmark}/>
