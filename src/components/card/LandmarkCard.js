@@ -9,10 +9,15 @@ import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import React, {useState} from 'react';
 import * as API from "services/api/travelPointsService";
 import LandmarkDetails from "pages/landmark/LandmarkDetails";
+import {useLocation, useNavigate} from "react-router-dom";
+import {OFFER} from "navigation/CONSTANTS";
 
 const LandmarkCard = ({landmark}) => {
     const [show, setShow] = useState(false);
-
+    const navigate = useNavigate();
+    const location = useLocation ();
+    const from = location.state?.from?.pathname;
+    
     const onViewDetails = () => {
         setShow(true);
     }
@@ -25,7 +30,9 @@ const LandmarkCard = ({landmark}) => {
             window.alert('You added an item to wishlist!')
         }
     }
-
+    const onAddOffer = () => {
+        navigate(from ??  OFFER + "/" + landmark.id, {replace: true});
+    }
     return (
         <div>
         <Card sx={{width: 325}} className={style.card}>
@@ -52,7 +59,10 @@ const LandmarkCard = ({landmark}) => {
             <br/>
             <div className={style.containerButton}>
                 <Button className={style.cardButton} style={{backgroundColor: "black"}} onClick={onViewDetails} variant="contained">View Details</Button>
-            </div>
+                 </div>
+            <div className={style.containerButton}>
+            <Button className={style.cardButton} style={{backgroundColor: "blue"}} onClick={onAddOffer} variant="contained">Add offer</Button>
+             </div>
             <div className={style.containerButton}>
                 <Button className={style.cardButton} variant="contained" style={{backgroundColor: "black"}}>Review</Button>
                 <FavoriteBorderIcon onClick={async () => onAddFav(landmark)} style={{position: "absolute", marginLeft: "8rem"}}/>
