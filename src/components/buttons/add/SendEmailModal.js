@@ -1,13 +1,36 @@
-import React, {useState} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "@mui/material/Button";
 import {Input} from "reactstrap";
+import * as API from "services/api/travelPointsService";
 
 const SendEmailModal = ({ showEmail,
                           onHide
                           }) => {
-const onSendEmail = () => {
+const inputRef = useRef();
+
+useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
+const [subject, setSubject] = useState('');
+const [content, setContent] = useState('');
+
+const onSendEmail = async () => {
+    const emailMessage = {
+        to: "razvanmadar@gmail.com",
+        from: "andreea.tatar23@gmail.com",
+        subject: subject,
+        body: content,
+    }
+    await API.sendEmail(emailMessage);
     
+    setSubject('');
+    setContent('');
+    onHide();
+
     }                          
     return (
         <Modal
@@ -34,28 +57,21 @@ const onSendEmail = () => {
                         id="description"
                         name="description"
                         type="text"
-                        placeholder="From...."
-                        required
-                    />
-                    <br/>
-                    <Input
-                        autoFocus={true}
-                        style={{resize: "none", textDecoration: "none"}}
-                        id="description"
-                        name="description"
-                        type="text"
                         placeholder="Subject...."
                         required
+                        value={subject}
+                        onChange={(e) => setSubject(e.target.value)} 
                     />
                     <br/>
                     <Input
-                        autoFocus={true}
                         style={{resize: "none", textDecoration: "none", height: "100px"}}
                         id="description"
                         name="description"
                         type="text"
                         placeholder="Content...."
                         required
+                        value={content}
+                        onChange={(e) => setContent(e.target.value)} 
                     />
                    
             </Modal.Body>
