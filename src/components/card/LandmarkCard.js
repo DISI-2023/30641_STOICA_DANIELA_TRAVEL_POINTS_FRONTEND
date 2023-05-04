@@ -16,7 +16,9 @@ const LandmarkCard = ({landmark}) => {
     const onViewDetails = () => {
         setShow(true);
     }
-
+    const onViewStatistics = () => {
+        window.alert('sal')
+    }
     const onAddFav = async (landmark) => {
         const userDetails = JSON.parse(localStorage.getItem('userDetails'));
         if(userDetails != null) {
@@ -25,6 +27,7 @@ const LandmarkCard = ({landmark}) => {
             window.alert('You added an item to wishlist!')
         }
     }
+    const isAdmin = JSON.parse(localStorage.getItem('userDetails'))?.role === "ADMIN";
 
     return (
         <div>
@@ -51,7 +54,10 @@ const LandmarkCard = ({landmark}) => {
             </CardActionArea>
             <br/>
             <div className={style.containerButton}>
-                <Button className={style.cardButton} style={{backgroundColor: "black"}} onClick={onViewDetails} variant="contained">View Details</Button>
+                <Button className={style.cardButton} style={{backgroundColor: "black" , marginLeft :isAdmin && "-70px", width: isAdmin && "40%",  fontSize: isAdmin && "8px"   }} onClick={onViewDetails} variant="contained">View Details</Button>
+                {
+                isAdmin &&  <Button className={style.cardButton} style={{backgroundColor: "black", width: "40%", marginLeft: "50px", fontSize: "8px" }} variant="contained" onClick={onViewStatistics}>View Statistics</Button>
+                }
             </div>
             <div className={style.containerButton}>
                 <Button className={style.cardButton} variant="contained" style={{backgroundColor: "black"}}>Review</Button>
