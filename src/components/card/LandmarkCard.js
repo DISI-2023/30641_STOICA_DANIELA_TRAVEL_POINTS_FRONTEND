@@ -5,7 +5,6 @@ import {Button, CardActionArea, CardMedia} from "@mui/material";
 import style from './LandmarkCard.module.css';
 import mock from '../../mock.png'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import EditIcon from '@mui/icons-material/BorderColor';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import React, {useState} from 'react';
 import * as API from "services/api/travelPointsService";
@@ -15,6 +14,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {OFFER} from "navigation/CONSTANTS";
 import AddReview from "components/forms";
 import EditLandmarkModal from "components/editLandmarkForm/EditLandmarkModal";
+import CalendarModal from './CalendarModal'
 
 const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
     const isAdmin = JSON.parse(localStorage.getItem('userDetails'))?.role === "ADMIN";
@@ -32,14 +32,16 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
     const navigate = useNavigate();
     const path = useLocation();
     const from = path.state?.from?.pathname;
+    const [showCalendar, setShowCalendar] = useState(false);
 
     const onViewDetails = () => {
         setShow(true);
         console.log(show)
     }
     const onViewStatistics = () => {
-        window.alert('sal')
+        setShowCalendar(true);
     }
+
     const onAddFav = async (landmark) => {
         const userDetails = JSON.parse(localStorage.getItem('userDetails'));
         if (userDetails != null) {
@@ -160,6 +162,8 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
             </Card>
 
         <LandmarkDetails show={show} onHide={()=> setShow(false)} landmark = {landmark}/>
+        <CalendarModal show={showCalendar} onHide={()=> setShowCalendar(false)} ></CalendarModal>
+
         <AddOfferModal showOffer={showOffer} onHide={()=>setShowOffer(false)} />
 
             <LandmarkDetails show={show} onHide={()=> setShow(false)} landmark = {landmark}/>
