@@ -9,16 +9,18 @@ import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import React, {useState} from 'react';
 import * as API from "services/api/travelPointsService";
 import LandmarkDetails from "pages/landmark/LandmarkDetails";
-
+import CalendarModal from './CalendarModal'
 const LandmarkCard = ({landmark}) => {
     const [show, setShow] = useState(false);
+    const [showCalendar, setShowCalendar] = useState(false);
 
     const onViewDetails = () => {
         setShow(true);
     }
     const onViewStatistics = () => {
-        window.alert('sal')
+        setShowCalendar(true);
     }
+    
     const onAddFav = async (landmark) => {
         const userDetails = JSON.parse(localStorage.getItem('userDetails'));
         if(userDetails != null) {
@@ -66,6 +68,8 @@ const LandmarkCard = ({landmark}) => {
         </Card>
 
         <LandmarkDetails show={show} onHide={()=> setShow(false)} landmark = {landmark}/>
+        <CalendarModal show={showCalendar} onHide={()=> setShowCalendar(false)} ></CalendarModal>
+
         </div>
 
     )
