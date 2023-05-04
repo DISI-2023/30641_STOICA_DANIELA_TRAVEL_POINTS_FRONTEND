@@ -6,7 +6,9 @@ import {Input} from "reactstrap";
 const SendEmailModal = ({ showEmail,
                           onHide
                           }) => {
-
+const onSendEmail = () => {
+    
+    }                          
     return (
         <Modal
             show={showEmail}
@@ -21,7 +23,7 @@ const SendEmailModal = ({ showEmail,
                     marginLeft: "8rem"
                 }}>
                     <Modal.Title id="contained-modal-title-vcenter">
-                       Send email test
+                       Send an email
                     </Modal.Title>
                 </div>
             </Modal.Header>
@@ -32,15 +34,37 @@ const SendEmailModal = ({ showEmail,
                         id="description"
                         name="description"
                         type="text"
-                        placeholder="Test"
+                        placeholder="From...."
                         required
                     />
                     <br/>
+                    <Input
+                        autoFocus={true}
+                        style={{resize: "none", textDecoration: "none"}}
+                        id="description"
+                        name="description"
+                        type="text"
+                        placeholder="Subject...."
+                        required
+                    />
+                    <br/>
+                    <Input
+                        autoFocus={true}
+                        style={{resize: "none", textDecoration: "none", height: "100px"}}
+                        id="description"
+                        name="description"
+                        type="text"
+                        placeholder="Content...."
+                        required
+                    />
                    
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="contained" onClick={() => onHide()}
                         >Close
+                </Button>
+                <Button variant="contained" style = {{marginLeft:"15px"}} onClick={() => onSendEmail()}
+                        >Send!
                 </Button>
             </Modal.Footer>
         </Modal>
