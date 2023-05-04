@@ -39,7 +39,10 @@ const LandmarkView = ({
             <Button onClick={onFilter}> Filter! </Button>
             {isAdmin && <AddLandmark onChangeShow={onChangeShow} addLandmark={addLandmark}
                                      onChangeIsAddedNewLandmark={onChangeIsAddedNewLandmark}/>}
-            <Button onClick={onSendEmail} style={{marginLeft: "10%"}}>Make a request</Button>
+    {
+        !isAdmin && <Button onClick={onSendEmail} style={{marginLeft: "10%"}}>Make a request</Button>
+    }
+            
             <Row>
                 {landmarks.map((landmark) => (
                     <Col key={landmark.id}
