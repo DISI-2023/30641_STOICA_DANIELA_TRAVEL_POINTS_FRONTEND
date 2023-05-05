@@ -5,7 +5,7 @@ import AddLandmarkModal from "../../components/buttons/add/AddLandmarkModal";
 import React from "react";
 import Button from "@mui/material/Button";
 import SendEmailModal from "../../components/buttons/add/SendEmailModal";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 
 const LandmarkView = ({
                           landmarks,
@@ -23,14 +23,16 @@ const LandmarkView = ({
                           textDescriptionInputChangeHandle,
                           categoryInputChangeHandle,
                           priceInputChangeHandle,
-                          onFilter
+                          onFilter,
+                          reviewShow,
+                          onChangeReviewShow
                       }) => {
     const isAdmin = JSON.parse(localStorage.getItem('userDetails'))?.role === "ADMIN";
-    const [showEmail, setShowEmail] = useState(false);             
+    const [showEmail, setShowEmail] = useState(false);
     const onSendEmail = () => {
         setShowEmail(true);
     }
-     return (
+    return (
         <div>
             <label>Location: </label>
             <input placeholder="Location" onChange={(e) => locationInputChangeHandle(e.target.value)}></input>
@@ -39,10 +41,10 @@ const LandmarkView = ({
             <Button onClick={onFilter}> Filter! </Button>
             {isAdmin && <AddLandmark onChangeShow={onChangeShow} addLandmark={addLandmark}
                                      onChangeIsAddedNewLandmark={onChangeIsAddedNewLandmark}/>}
-    {
-        !isAdmin && <Button onClick={onSendEmail} style={{marginLeft: "10%"}}>Make a request</Button>
-    }
-            
+            {
+                !isAdmin && <Button onClick={onSendEmail} style={{marginLeft: "10%"}}>Make a request</Button>
+            }
+
             <Row>
                 {landmarks.map((landmark) => (
                     <Col key={landmark.id}
