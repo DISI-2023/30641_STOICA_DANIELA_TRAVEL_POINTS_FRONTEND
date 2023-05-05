@@ -21,7 +21,9 @@ const LandmarkCard = ({landmark}) => {
     const onViewDetails = () => {
         setShow(true);
     }
-
+    const onViewStatistics = () => {
+        window.alert('sal')
+    }
     const onAddFav = async (landmark) => {
         const userDetails = JSON.parse(localStorage.getItem('userDetails'));
         if(userDetails != null) {
@@ -30,6 +32,7 @@ const LandmarkCard = ({landmark}) => {
             window.alert('You added an item to wishlist!')
         }
     }
+    const isAdmin = JSON.parse(localStorage.getItem('userDetails'))?.role === "ADMIN";
     const onAddOffer = () => {
         navigate(from ??  OFFER + "/" + landmark.id, {replace: true});
     }
@@ -59,10 +62,7 @@ const LandmarkCard = ({landmark}) => {
             <br/>
             <div className={style.containerButton}>
                 <Button className={style.cardButton} style={{backgroundColor: "black"}} onClick={onViewDetails} variant="contained">View Details</Button>
-                 </div>
-            <div className={style.containerButton}>
-            <Button className={style.cardButton} style={{backgroundColor: "blue"}} onClick={onAddOffer} variant="contained">Add offer</Button>
-             </div>
+            </div>
             <div className={style.containerButton}>
                 <Button className={style.cardButton} variant="contained" style={{backgroundColor: "black"}}>Review</Button>
                 <FavoriteBorderIcon onClick={async () => onAddFav(landmark)} style={{position: "absolute", marginLeft: "8rem"}}/>
