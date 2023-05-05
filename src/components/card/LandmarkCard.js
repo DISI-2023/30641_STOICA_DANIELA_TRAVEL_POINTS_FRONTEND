@@ -9,10 +9,15 @@ import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import React, {useState} from 'react';
 import * as API from "services/api/travelPointsService";
 import LandmarkDetails from "pages/landmark/LandmarkDetails";
+import {useLocation, useNavigate} from "react-router-dom";
+import {OFFER} from "navigation/CONSTANTS";
 
 const LandmarkCard = ({landmark}) => {
     const [show, setShow] = useState(false);
-
+    const navigate = useNavigate();
+    const location = useLocation ();
+    const from = location.state?.from?.pathname;
+    
     const onViewDetails = () => {
         setShow(true);
     }
@@ -28,7 +33,9 @@ const LandmarkCard = ({landmark}) => {
         }
     }
     const isAdmin = JSON.parse(localStorage.getItem('userDetails'))?.role === "ADMIN";
-
+    const onAddOffer = () => {
+        navigate(from ??  OFFER + "/" + landmark.id, {replace: true});
+    }
     return (
         <div>
         <Card sx={{width: 325}} className={style.card}>
@@ -54,10 +61,7 @@ const LandmarkCard = ({landmark}) => {
             </CardActionArea>
             <br/>
             <div className={style.containerButton}>
-                <Button className={style.cardButton} style={{backgroundColor: "black" , marginLeft :isAdmin && "-70px", width: isAdmin && "40%",  fontSize: isAdmin && "8px"   }} onClick={onViewDetails} variant="contained">View Details</Button>
-                {
-                isAdmin &&  <Button className={style.cardButton} style={{backgroundColor: "black", width: "40%", marginLeft: "50px", fontSize: "8px" }} variant="contained" onClick={onViewStatistics}>View Statistics</Button>
-                }
+                <Button className={style.cardButton} style={{backgroundColor: "black"}} onClick={onViewDetails} variant="contained">View Details</Button>
             </div>
             <div className={style.containerButton}>
                 <Button className={style.cardButton} variant="contained" style={{backgroundColor: "black"}}>Review</Button>
