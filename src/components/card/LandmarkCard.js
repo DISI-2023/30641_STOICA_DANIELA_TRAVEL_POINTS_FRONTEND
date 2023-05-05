@@ -10,18 +10,22 @@ import React, {useState} from 'react';
 import * as API from "services/api/travelPointsService";
 import LandmarkDetails from "pages/landmark/LandmarkDetails";
 import AddOfferModal from "./AddOfferModal"
+import CalendarModal from './CalendarModal'
+
+
 
 const LandmarkCard = ({landmark}) => {
     const [show, setShow] = useState(false);
+    const [showCalendar, setShowCalendar] = useState(false);
     const [showOffer, setShowOffer] = useState(false);
-
     const onViewDetails = () => {
         setShow(true);
         console.log(show)
     }
     const onViewStatistics = () => {
-        window.alert('sal')
+        setShowCalendar(true);
     }
+    
     const onAddFav = async (landmark) => {
         const userDetails = JSON.parse(localStorage.getItem('userDetails'));
         if(userDetails != null) {
@@ -77,6 +81,7 @@ const LandmarkCard = ({landmark}) => {
 
         <LandmarkDetails show={show} onHide={()=> setShow(false)} landmark = {landmark}/>
         <AddOfferModal showOffer={showOffer} onHide={()=>setShowOffer(false)} />
+        <CalendarModal show={showCalendar} onHide={()=> setShowCalendar(false)} ></CalendarModal>
 
         </div>
 
