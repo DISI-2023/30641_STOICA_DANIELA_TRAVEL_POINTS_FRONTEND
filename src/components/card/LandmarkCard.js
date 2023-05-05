@@ -21,7 +21,6 @@ const LandmarkCard = ({landmark}) => {
     const from = location.state?.from?.pathname;
 
     const onViewDetails = () => {
-        console.log(landmark.id)
         setShow(true);
     }
     const onViewStatistics = () => {
