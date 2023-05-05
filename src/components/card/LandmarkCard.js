@@ -10,6 +10,7 @@ import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import React, {useState} from 'react';
 import * as API from "services/api/travelPointsService";
 import LandmarkDetails from "pages/landmark/LandmarkDetails";
+import AddOfferModal from "./AddOfferModal"
 import {useLocation, useNavigate} from "react-router-dom";
 import {OFFER} from "navigation/CONSTANTS";
 import AddReview from "components/forms";
@@ -19,6 +20,8 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
     const isAdmin = JSON.parse(localStorage.getItem('userDetails'))?.role === "ADMIN";
     const [landmark, setLandmark] = useState(data);
     const [show, setShow] = useState(false);
+    const [showOffer, setShowOffer] = useState(false);
+
     const [name, setName] = useState('');
     const [location, setLocation] = useState('');
     const [textDescription, setTextDescription] = useState('');
@@ -32,6 +35,7 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
 
     const onViewDetails = () => {
         setShow(true);
+        console.log(show)
     }
     const onViewStatistics = () => {
         window.alert('sal')
@@ -77,6 +81,8 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
     }
 
     const onAddOffer = () => {
+        setShowOffer(true);
+        console.log(showOffer)
         navigate(from ?? OFFER + "/" + landmark.id, {replace: true});
     }
 
@@ -152,6 +158,9 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
                     </div>
                 }
             </Card>
+
+        <LandmarkDetails show={show} onHide={()=> setShow(false)} landmark = {landmark}/>
+        <AddOfferModal showOffer={showOffer} onHide={()=>setShowOffer(false)} />
 
             <LandmarkDetails show={show} onHide={()=> setShow(false)} landmark = {landmark}/>
             <EditLandmarkModal
