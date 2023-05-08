@@ -5,3 +5,4 @@ export const LANDMARKS = '/landmarks';
 export const WISHLIST = '/wishlist';
 export const UNAUTHORIZED = "unauthorized";
 export const REGISTER ="/register";
+export const OFFER ="/offer";

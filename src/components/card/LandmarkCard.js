@@ -10,6 +10,9 @@ import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import React, {useState} from 'react';
 import * as API from "services/api/travelPointsService";
 import LandmarkDetails from "pages/landmark/LandmarkDetails";
+import {useLocation, useNavigate} from "react-router-dom";
+import {OFFER} from "navigation/CONSTANTS";
+import AddReview from "components/forms";
 import EditLandmarkModal from "components/editLandmarkForm/EditLandmarkModal";
 
 const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
@@ -22,14 +25,20 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
     const [category, setCategory] = useState('');
     const [price, setPrice] = useState(0.0);
     const [showEditModal, setShowEditModal] = useState(false);
+    const [reviewShow, setReviewShow] = useState(false)
+    const navigate = useNavigate();
+    const path = useLocation();
+    const from = path.state?.from?.pathname;
 
     const onViewDetails = () => {
         setShow(true);
     }
-
+    const onViewStatistics = () => {
+        window.alert('sal')
+    }
     const onAddFav = async (landmark) => {
         const userDetails = JSON.parse(localStorage.getItem('userDetails'));
-        if(userDetails != null) {
+        if (userDetails != null) {
 
             await API.addToFavourite(landmark.id, userDetails.id);
             window.alert('You added an item to wishlist!')
@@ -67,9 +76,19 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
         setShowEditModal(prevState => !prevState)
     }
 
+    const onAddOffer = () => {
+        navigate(from ?? OFFER + "/" + landmark.id, {replace: true});
+    }
+
+    const restrictLengthOfDescription = (description) => {
+        if (description.length > 85)
+            return description.substring(0, 85) + "..."
+        return description;
+    }
+
     return (
         <div>
-            <Card sx={{width: 325}} className={style.card}>
+            <Card sx={{width: 325, height: 520}} className={style.card}>
                 <CardActionArea>
                     <CardMedia  // for now the landmark's image is not saved properly.
                         component="img"
@@ -86,7 +105,7 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
                             {landmark.location}
                         </Typography>
                         <Typography variant="h6" color="text.secondary" style={{marginTop: "1rem"}}>
-                            {landmark.textDescription}
+                            {restrictLengthOfDescription(landmark.textDescription)}
                         </Typography>
                     </CardContent>
                 </CardActionArea>
@@ -121,7 +140,14 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
                         </Button>
                     </div>
                     : <div className={style.containerButton}>
-                        <Button className={style.cardButton} variant="contained" style={{backgroundColor: "black"}}>Review</Button>
+                        <Button
+                            className={style.cardButton}
+                            variant="contained"
+                            style={{backgroundColor: "black"}}
+                            onClick={() => setReviewShow(true)}
+                        >
+                            Review
+                        </Button>
                         <FavoriteBorderIcon onClick={async () => onAddFav(landmark)} style={{position: "absolute", marginLeft: "8rem"}}/>
                     </div>
                 }
@@ -143,6 +169,8 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
                 categoryInputChangeHandle={setCategory}
                 priceInputChangeHandle={setPrice}
             />
+
+            <AddReview reviewShow={reviewShow} onHide={() => setReviewShow(false)} landmarkId={landmark.id}/>
         </div>
 
     )

@@ -4,7 +4,7 @@ import AddReview from "components/forms";
 import AddLandmark from "components/buttons/add";
 
 const HomeView = () => {
-    const landmarkId = 3; //delete this in final version
+    const landmarkId = 2; //delete this in final version
 
     return (
         <>
@@ -21,7 +21,7 @@ const HomeView = () => {
                 */}
                 <DeleteButton landmarkId={landmarkId}/>
             </div>
-            <AddReview/>
+            {/*<AddReview/>*/}
             <AddLandmark />
         </>
     );
