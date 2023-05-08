@@ -40,6 +40,10 @@ const addLandmark = async (request) => {
     return await travelPointsAxios.post(`landmark`, JSON.stringify(request));
 }
 
+const editLandmark = async (request) => {
+    return await travelPointsAxios.put(`landmark`, JSON.stringify(request));
+}
+
 const getLandmarksFromWishlist = async(id) => {
     return await travelPointsAxios.get(`wishlist/${id}`)
 }
@@ -56,5 +60,6 @@ export {
     getLandmarksFromWishlist,
     register,
     addLandmark,
+    editLandmark,
     sendEmail
 };

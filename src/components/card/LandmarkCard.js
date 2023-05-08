@@ -5,6 +5,7 @@ import {Button, CardActionArea, CardMedia} from "@mui/material";
 import style from './LandmarkCard.module.css';
 import mock from '../../mock.png'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import EditIcon from '@mui/icons-material/BorderColor';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import React, {useState} from 'react';
 import * as API from "services/api/travelPointsService";
@@ -12,13 +13,22 @@ import LandmarkDetails from "pages/landmark/LandmarkDetails";
 import {useLocation, useNavigate} from "react-router-dom";
 import {OFFER} from "navigation/CONSTANTS";
 import AddReview from "components/forms";
+import EditLandmarkModal from "components/editLandmarkForm/EditLandmarkModal";
 
-const LandmarkCard = ({landmark}) => {
+const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
+    const isAdmin = JSON.parse(localStorage.getItem('userDetails'))?.role === "ADMIN";
+    const [landmark, setLandmark] = useState(data);
     const [show, setShow] = useState(false);
+    const [name, setName] = useState('');
+    const [location, setLocation] = useState('');
+    const [textDescription, setTextDescription] = useState('');
+    const [category, setCategory] = useState('');
+    const [price, setPrice] = useState(0.0);
+    const [showEditModal, setShowEditModal] = useState(false);
     const [reviewShow, setReviewShow] = useState(false)
     const navigate = useNavigate();
-    const location = useLocation();
-    const from = location.state?.from?.pathname;
+    const path = useLocation();
+    const from = path.state?.from?.pathname;
 
     const onViewDetails = () => {
         setShow(true);
@@ -35,7 +45,36 @@ const LandmarkCard = ({landmark}) => {
         }
     }
 
-    const isAdmin = JSON.parse(localStorage.getItem('userDetails'))?.role === "ADMIN";
+    const editLandmark = async () => {
+        const updatedLandmark = {
+            id: landmark.id,
+            name: name,
+            location: location,
+            textDescription: textDescription,
+            category: category,
+            price: price
+        }
+        setName('')
+        setLocation('')
+        setTextDescription('')
+        setCategory('')
+        setPrice(0.0)
+        setLandmark(updatedLandmark)
+        return await API.editLandmark(updatedLandmark)
+    }
+
+    const openEditModal = () => {
+        setName(landmark.name)
+        setLocation(landmark.location)
+        setTextDescription(landmark.textDescription)
+        setCategory(landmark.category)
+        setPrice(landmark.price)
+        toggleEditModal();
+    }
+
+    const toggleEditModal = () => {
+        setShowEditModal(prevState => !prevState)
+    }
 
     const onAddOffer = () => {
         navigate(from ?? OFFER + "/" + landmark.id, {replace: true});
@@ -72,19 +111,69 @@ const LandmarkCard = ({landmark}) => {
                 </CardActionArea>
                 <br/>
                 <div className={style.containerButton}>
-                    <Button className={style.cardButton} style={{backgroundColor: "black"}} onClick={onViewDetails}
-                            variant="contained">View Details</Button>
+                    <Button className={style.cardButton} style={{backgroundColor: "black"}} onClick={onViewDetails} variant="contained">View Details</Button>
                 </div>
-                <div className={style.containerButton}>
-                    <Button className={style.cardButton} variant="contained"
-                            style={{backgroundColor: "black"}} onClick={() => setReviewShow(true)}>Review</Button>
-                    <FavoriteBorderIcon onClick={async () => onAddFav(landmark)}
-                                        style={{position: "absolute", marginLeft: "8rem"}}/>
-                </div>
+                {isAdmin ?
+                    <div className={style.containerButton}>
+                        <Button
+                            className={style.smallCardButton}
+                            variant="contained"
+                            style={{backgroundColor: "green"}}
+                            onClick={openEditModal}
+                        >
+                            Update
+                        </Button>
+                        <Button
+                            className={style.smallCardButton}
+                            variant="contained"
+                            style={{backgroundColor: "blue"}}
+                        >
+                            Add Offer
+                        </Button>
+                        <Button
+                            className={style.smallCardButton}
+                            variant="contained"
+                            style={{backgroundColor: "red"}}
+                            onClick={e => deleteLandmarkButtonHandle(e, landmark.id)}
+                        >
+                            Delete
+                        </Button>
+                    </div>
+                    : <div className={style.containerButton}>
+                        <Button
+                            className={style.cardButton}
+                            variant="contained"
+                            style={{backgroundColor: "black"}}
+                            onClick={() => setReviewShow(true)}
+                        >
+                            Review
+                        </Button>
+                        <FavoriteBorderIcon onClick={async () => onAddFav(landmark)} style={{position: "absolute", marginLeft: "8rem"}}/>
+                    </div>
+                }
             </Card>
 
-            <LandmarkDetails show={show} onHide={() => setShow(false)} landmark={landmark}/>
-            <AddReview reviewShow={reviewShow} onHide={() => setReviewShow(false)} landmarkId={landmark.id}/>
+            <LandmarkDetails show={show} onHide={()=> setShow(false)} landmark = {landmark}/>
+            <EditLandmarkModal
+                show={showEditModal}
+                onHide={toggleEditModal}
+                editLandmark={editLandmark}
+                name={name}
+                location={location}
+                textDescription={textDescription}
+                category={category}
+                price={price}
+                nameInputChangeHandle={setName}
+                locationInputChangeHandle={setLocation}
+                textDescriptionInputChangeHandle={setTextDescription}
+                categoryInputChangeHandle={setCategory}
+                priceInputChangeHandle={setPrice}
+            />
+            <AddReview
+                reviewShow={reviewShow}
+                onHide={() => setReviewShow(false)}
+                landmarkId={landmark.id}
+            />
         </div>
 
     )

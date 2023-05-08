@@ -25,7 +25,8 @@ const LandmarkView = ({
                           priceInputChangeHandle,
                           onFilter,
                           reviewShow,
-                          onChangeReviewShow
+                          onChangeReviewShow,
+                          deleteLandmarkButtonHandle
                       }) => {
     const isAdmin = JSON.parse(localStorage.getItem('userDetails'))?.role === "ADMIN";
     const [showEmail, setShowEmail] = useState(false);
@@ -55,7 +56,10 @@ const LandmarkView = ({
                              margin: "1rem"
                          }}
                     >
-                        <LandmarkCard landmark={landmark}/>
+                        <LandmarkCard
+                            data={landmark}
+                            deleteLandmarkButtonHandle={deleteLandmarkButtonHandle}
+                        />
                     </Col>
                 ))}
             </Row>
