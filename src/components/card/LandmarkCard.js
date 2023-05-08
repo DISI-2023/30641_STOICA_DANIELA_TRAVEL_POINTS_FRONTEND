@@ -169,8 +169,11 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
                 categoryInputChangeHandle={setCategory}
                 priceInputChangeHandle={setPrice}
             />
-
-            <AddReview reviewShow={reviewShow} onHide={() => setReviewShow(false)} landmarkId={landmark.id}/>
+            <AddReview
+                reviewShow={reviewShow}
+                onHide={() => setReviewShow(false)}
+                landmarkId={landmark.id}
+            />
         </div>
 
     )
