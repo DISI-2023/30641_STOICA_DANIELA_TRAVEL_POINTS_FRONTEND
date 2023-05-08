@@ -10,7 +10,7 @@
 .box {
     resize: none;
     textDecoration: none;
-    height: 5rem;
-    width: 15rem;
-    border-radius: 5px;
+    height: 3rem;
+    width: 100%;
+    border: 1px solid black
 }
