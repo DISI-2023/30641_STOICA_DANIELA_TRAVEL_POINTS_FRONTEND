@@ -7,7 +7,7 @@ import mock from '../../mock.png'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import EditIcon from '@mui/icons-material/BorderColor';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import * as API from "services/api/travelPointsService";
 import LandmarkDetails from "pages/landmark/LandmarkDetails";
 import {useLocation, useNavigate} from "react-router-dom";
@@ -25,10 +25,51 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
     const [category, setCategory] = useState('');
     const [price, setPrice] = useState(0.0);
     const [showEditModal, setShowEditModal] = useState(false);
-    const [reviewShow, setReviewShow] = useState(false)
+    const [reviewShow, setReviewShow] = useState(false);
+    const [offer, setOffer] = useState();
     const navigate = useNavigate();
     const path = useLocation();
     const from = path.state?.from?.pathname;
+
+    useEffect(() => {
+        getOffer()
+    }, [])
+
+    useEffect(() => {
+        const interval = setInterval(() => updateOffer(), 5000)
+        return () => clearInterval(interval)
+    }, [offer])
+
+    const updateOffer = () => {
+        console.log(landmark.id, offer, new Date())
+        if (offer === undefined){
+            API.getOffer(landmark.id)
+                .then(response => {
+                    console.log(landmark.id, response.data)
+                    if (response.data.length) {
+                        setOffer(response.data[0])
+                    }
+                })
+        } else {
+            const endDate = new Date(offer.end).getTime();
+            const currentDate = new Date().getTime()
+            if (endDate < currentDate) {
+                API.deleteOffer(offer.id)
+                setOffer(undefined)
+            }
+        }
+    }
+
+    const getOffer = () => {
+        API.getOffer(landmark.id)
+            .then(response => {
+                if (response.data.length) {
+                    setOffer(response.data[0])
+                }
+            })
+    }
+
+
 
     const onViewDetails = () => {
         setShow(true);
@@ -152,8 +193,12 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
                     </div>
                 }
             </Card>
-
-            <LandmarkDetails show={show} onHide={()=> setShow(false)} landmark = {landmark}/>
+            <LandmarkDetails
+                show={show}
+                onHide={()=> setShow(false)}
+                landmark={landmark}
+                offer={offer}
+            />
             <EditLandmarkModal
                 show={showEditModal}
                 onHide={toggleEditModal}

@@ -62,7 +62,6 @@ const EditLandmarkModal = ({
                 </div>
             </Modal.Header>
             <Modal.Body>
-                {console.log(name)}
                     <Input
                         autoFocus={true}
                         style={{resize: "none", textDecoration: "none"}}

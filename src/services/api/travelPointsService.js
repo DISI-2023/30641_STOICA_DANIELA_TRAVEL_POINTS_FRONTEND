@@ -51,6 +51,15 @@ const getLandmarksFromWishlist = async(id) => {
 const sendEmail = async(request) => {
     return await travelPointsAxios.post(`email`, JSON.stringify(request));
 }
+
+const getOffer = async (landmarkId) => {
+    return await travelPointsAxios.get(`offer/all/${landmarkId}`)
+}
+
+const deleteOffer = (id) => {
+    travelPointsAxios.delete(`offer/${id}`)
+}
+
 export {
     login,
     deleteLandmark,
@@ -61,5 +70,7 @@ export {
     register,
     addLandmark,
     editLandmark,
-    sendEmail
+    sendEmail,
+    getOffer,
+    deleteOffer
 };

@@ -1,7 +1,7 @@
 import Modal from "react-bootstrap/Modal";
 import Button from "@mui/material/Button";
 
-const LandmarkDetails = ({ show, onHide, landmark }) => {
+const LandmarkDetails = ({ show, onHide, landmark, offer }) => {
     return (
         <Modal
             show={show}
@@ -23,7 +23,12 @@ const LandmarkDetails = ({ show, onHide, landmark }) => {
                         <br />
                         <span style={{ textAlign: "center" }}>Category: {landmark.category}</span>
                         <br />
-                        <span style={{ textAlign: "center" }}>Offers: lorem ipsum lorem ipsum lorem ipsum</span>
+                        <span style={{ textAlign: "center" }}>Offers:
+                            {offer ?
+                                ` ${offer?.start} - ${offer?.end}: -${offer.discount}$`
+                                : " There are currently no offers available"
+                            }
+                        </span>
                         <br />
                     </div>
                 }
