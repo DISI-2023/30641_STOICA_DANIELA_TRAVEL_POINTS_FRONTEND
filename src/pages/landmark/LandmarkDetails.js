@@ -2,6 +2,28 @@ import Modal from "react-bootstrap/Modal";
 import Button from "@mui/material/Button";
 
 const LandmarkDetails = ({ show, onHide, landmark, offer }) => {
+    function padTo2Digits(num) {
+        return num.toString().padStart(2, '0');
+    }
+
+    const getFormattedDatetime = (date) => {
+        date = new Date(date)
+
+        return (
+            [
+                date.getFullYear(),
+                padTo2Digits(date.getMonth() + 1),
+                padTo2Digits(date.getDate()),
+            ].join('-') +
+            ' ' +
+            [
+                padTo2Digits(date.getHours()),
+                padTo2Digits(date.getMinutes()),
+                padTo2Digits(date.getSeconds()),
+            ].join(':')
+        );
+    }
+
     return (
         <Modal
             show={show}
@@ -25,7 +47,7 @@ const LandmarkDetails = ({ show, onHide, landmark, offer }) => {
                         <br />
                         <span style={{ textAlign: "center" }}>Offers:
                             {offer ?
-                                ` ${offer?.start} - ${offer?.end}: -${offer.discount}$`
+                                ` ${getFormattedDatetime(offer?.start)} - ${getFormattedDatetime(offer?.end)}: -${offer.discount}€`
                                 : " There are currently no offers available"
                             }
                         </span>
