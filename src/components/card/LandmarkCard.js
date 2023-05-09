@@ -41,11 +41,9 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
     }, [offer])
 
     const updateOffer = () => {
-        console.log(landmark.id, offer, new Date())
         if (offer === undefined){
             API.getOffer(landmark.id)
                 .then(response => {
-                    console.log(landmark.id, response.data)
                     if (response.data.length) {
                         setOffer(response.data[0])
                     }
@@ -68,8 +66,6 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
                 }
             })
     }
-
-
 
     const onViewDetails = () => {
         setShow(true);
