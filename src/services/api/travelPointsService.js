@@ -65,6 +65,11 @@ const addOffer = async(request) => {
     return await travelPointsAxios.post(`offer`, JSON.stringify(request));
 }
 
+const getUsersEmailsForActiveOffers = async(offerId) => {
+    console.log(`offer/emails?offerId=${offerId}`)
+    return await travelPointsAxios.get(`offer/emails?offerId=${offerId}`);
+}
+
 export {
     login,
     deleteLandmark,
@@ -76,6 +81,7 @@ export {
     addLandmark,
     editLandmark,
     sendEmail,
+    getUsersEmailsForActiveOffers,
     getOffer,
     deleteOffer,
     addOffer

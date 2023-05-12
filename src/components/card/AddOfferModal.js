@@ -5,6 +5,7 @@ import {FormGroup, Label, Input} from "reactstrap";
 import * as API from "services/api/travelPointsService";
 import {LocalizationProvider} from '@mui/x-date-pickers';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs'
+import {getUsersEmailsForActiveOffers} from "services/api/travelPointsService";
 // import DatePicker from "react-datepicker";
 // import "react-datepicker/dist/react-datepicker.css";
 
@@ -30,7 +31,21 @@ const AddOfferModal = ({
         setSelectedDateStart(new Date())
         console.log(request)
         onHide();
-        return await API.addOffer(request)
+
+        await API.addOffer(request).then(async response => {
+            await API.getUsersEmailsForActiveOffers(response.data).then(emails => {
+                const validEmails = emails.data;
+                validEmails.map(async (email) => {
+                    const emailMessage = {
+                        to: email,
+                        from: "tatar.andreea23@gmail.com",
+                        subject: "New offer",
+                        body: `New offer for ${landmark.name}, a landmark from your wishlist!`,
+                    }
+                    return await API.sendEmail(emailMessage);
+                })
+            })
+        });
     }
 
     return (
