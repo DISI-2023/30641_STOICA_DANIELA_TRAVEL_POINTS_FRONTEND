@@ -85,7 +85,6 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
     const onAddOffer = () => {
         setShowOffer(true);
         console.log(showOffer)
-        navigate(from ?? OFFER + "/" + landmark.id, {replace: true});
     }
 
     const restrictLengthOfDescription = (description) => {
@@ -135,6 +134,7 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
                             className={style.smallCardButton}
                             variant="contained"
                             style={{backgroundColor: "blue"}}
+                            onClick={onAddOffer}
                         >
                             Add Offer
                         </Button>
@@ -164,7 +164,7 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
         <LandmarkDetails show={show} onHide={()=> setShow(false)} landmark = {landmark}/>
         <CalendarModal show={showCalendar} onHide={()=> setShowCalendar(false)} ></CalendarModal>
 
-        <AddOfferModal showOffer={showOffer} onHide={()=>setShowOffer(false)} />
+        <AddOfferModal showOffer={showOffer} onHide={()=>setShowOffer(false)} landmark={data}/>
 
             <LandmarkDetails show={show} onHide={()=> setShow(false)} landmark = {landmark}/>
             <EditLandmarkModal
