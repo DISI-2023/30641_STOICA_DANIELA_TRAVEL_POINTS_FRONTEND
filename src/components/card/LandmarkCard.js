@@ -5,20 +5,23 @@ import {Button, CardActionArea, CardMedia} from "@mui/material";
 import style from './LandmarkCard.module.css';
 import mock from '../../mock.png'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import EditIcon from '@mui/icons-material/BorderColor';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import React, {useState} from 'react';
 import * as API from "services/api/travelPointsService";
 import LandmarkDetails from "pages/landmark/LandmarkDetails";
+import AddOfferModal from "./AddOfferModal"
 import {useLocation, useNavigate} from "react-router-dom";
 import {OFFER} from "navigation/CONSTANTS";
 import AddReview from "components/forms";
 import EditLandmarkModal from "components/editLandmarkForm/EditLandmarkModal";
+import CalendarModal from './CalendarModal'
 
 const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
     const isAdmin = JSON.parse(localStorage.getItem('userDetails'))?.role === "ADMIN";
     const [landmark, setLandmark] = useState(data);
     const [show, setShow] = useState(false);
+    const [showOffer, setShowOffer] = useState(false);
+
     const [name, setName] = useState('');
     const [location, setLocation] = useState('');
     const [textDescription, setTextDescription] = useState('');
@@ -29,13 +32,16 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
     const navigate = useNavigate();
     const path = useLocation();
     const from = path.state?.from?.pathname;
+    const [showCalendar, setShowCalendar] = useState(false);
 
     const onViewDetails = () => {
         setShow(true);
+        console.log(show)
     }
     const onViewStatistics = () => {
-        window.alert('sal')
+        setShowCalendar(true);
     }
+
     const onAddFav = async (landmark) => {
         const userDetails = JSON.parse(localStorage.getItem('userDetails'));
         if (userDetails != null) {
@@ -77,7 +83,8 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
     }
 
     const onAddOffer = () => {
-        navigate(from ?? OFFER + "/" + landmark.id, {replace: true});
+        setShowOffer(true);
+        console.log(showOffer)
     }
 
     const restrictLengthOfDescription = (description) => {
@@ -127,6 +134,7 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
                             className={style.smallCardButton}
                             variant="contained"
                             style={{backgroundColor: "blue"}}
+                            onClick={onAddOffer}
                         >
                             Add Offer
                         </Button>
@@ -152,6 +160,11 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
                     </div>
                 }
             </Card>
+
+        <LandmarkDetails show={show} onHide={()=> setShow(false)} landmark = {landmark}/>
+        <CalendarModal show={showCalendar} onHide={()=> setShowCalendar(false)} ></CalendarModal>
+
+        <AddOfferModal showOffer={showOffer} onHide={()=>setShowOffer(false)} landmark={data}/>
 
             <LandmarkDetails show={show} onHide={()=> setShow(false)} landmark = {landmark}/>
             <EditLandmarkModal
