@@ -154,7 +154,10 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
                 </CardActionArea>
                 <br/>
                 <div className={style.containerButton}>
-                    <Button className={style.cardButton} style={{backgroundColor: "black"}} onClick={onViewDetails} variant="contained">View Details</Button>
+                    <Button className={style.cardButton} style={{backgroundColor: "black" , marginLeft :isAdmin && "-70px", width: isAdmin && "45%",  fontSize: isAdmin && "12px"}} onClick={onViewDetails} variant="contained">View Details</Button>
+                    {
+                        isAdmin &&  <Button className={style.cardButton} style={{backgroundColor: "black", width: "45%", marginLeft: "15px", fontSize: "12px" }} variant="contained" onClick={onViewStatistics}>View Statistics</Button>
+                    }
                 </div>
                 {isAdmin ?
                     <div className={style.containerButton}>
