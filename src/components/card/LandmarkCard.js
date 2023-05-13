@@ -6,7 +6,7 @@ import style from './LandmarkCard.module.css';
 import mock from '../../mock.png'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import * as API from "services/api/travelPointsService";
 import LandmarkDetails from "pages/landmark/LandmarkDetails";
 import AddOfferModal from "./AddOfferModal"
@@ -28,15 +28,51 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
     const [category, setCategory] = useState('');
     const [price, setPrice] = useState(0.0);
     const [showEditModal, setShowEditModal] = useState(false);
-    const [reviewShow, setReviewShow] = useState(false)
+    const [reviewShow, setReviewShow] = useState(false);
+    const [offer, setOffer] = useState();
     const navigate = useNavigate();
     const path = useLocation();
     const from = path.state?.from?.pathname;
     const [showCalendar, setShowCalendar] = useState(false);
 
+    useEffect(() => {
+        getOffer()
+    }, [])
+
+    useEffect(() => {
+        const interval = setInterval(() => updateOffer(), 5000)
+        return () => clearInterval(interval)
+    }, [offer])
+
+    const updateOffer = () => {
+        if (offer === undefined){
+            API.getOffer(landmark.id)
+                .then(response => {
+                    if (response.data.length) {
+                        setOffer(response.data[0])
+                    }
+                })
+        } else {
+            const endDate = new Date(offer.end).getTime();
+            const currentDate = new Date().getTime()
+            if (endDate < currentDate) {
+                API.deleteOffer(offer.id)
+                setOffer(undefined)
+            }
+        }
+    }
+
+    const getOffer = () => {
+        API.getOffer(landmark.id)
+            .then(response => {
+                if (response.data.length) {
+                    setOffer(response.data[0])
+                }
+            })
+    }
+
     const onViewDetails = () => {
         setShow(true);
-        console.log(show)
     }
     const onViewStatistics = () => {
         setShowCalendar(true);
@@ -160,11 +196,21 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
                     </div>
                 }
             </Card>
-
-        <LandmarkDetails show={show} onHide={()=> setShow(false)} landmark = {landmark}/>
-        <CalendarModal show={showCalendar} onHide={()=> setShowCalendar(false)} ></CalendarModal>
-
-        <AddOfferModal showOffer={showOffer} onHide={()=>setShowOffer(false)} landmark={data}/>
+            <LandmarkDetails
+                show={show}
+                onHide={()=> setShow(false)}
+                landmark={landmark}
+                offer={offer}
+            />
+            <CalendarModal
+                show={showCalendar}
+                onHide={()=> setShowCalendar(false)}
+            />
+            <AddOfferModal
+                showOffer={showOffer}
+                onHide={()=>setShowOffer(false)}
+                landmark={data}
+            />
 
             <LandmarkDetails show={show} onHide={()=> setShow(false)} landmark = {landmark}/>
             <EditLandmarkModal

@@ -52,6 +52,15 @@ const sendEmail = async(request) => {
     return await travelPointsAxios.post(`email`, JSON.stringify(request));
 }
 
+const getOffer = async (landmarkId) => {
+    return await travelPointsAxios.get(`offer/all/${landmarkId}`)
+}
+
+const deleteOffer = (id) => {
+    travelPointsAxios.delete(`offer/${id}`)
+}
+
+
 const addOffer = async(request) => {
     return await travelPointsAxios.post(`offer`, JSON.stringify(request));
 }
@@ -67,5 +76,7 @@ export {
     addLandmark,
     editLandmark,
     sendEmail,
+    getOffer,
+    deleteOffer,
     addOffer
 };
