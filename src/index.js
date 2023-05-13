@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import {RouterConfig} from "./navigation/RouterConfig";
+import 'devextreme/dist/css/dx.light.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
