@@ -60,9 +60,12 @@ const deleteOffer = (id) => {
     travelPointsAxios.delete(`offer/${id}`)
 }
 
-
 const addOffer = async(request) => {
     return await travelPointsAxios.post(`offer`, JSON.stringify(request));
+}
+
+const getYearFrequencyForLandmark = async(year, id) => {
+    return await travelPointsAxios.get(`visit/year-frequency?year=${year}&landmarkId=${id}`);
 }
 
 const getUsersEmailsForActiveOffers = async(offerId) => {
@@ -90,5 +93,6 @@ export {
     getOffer,
     deleteOffer,
     addOffer,
+    getYearFrequencyForLandmark,
     getTopLandmarks
 };
