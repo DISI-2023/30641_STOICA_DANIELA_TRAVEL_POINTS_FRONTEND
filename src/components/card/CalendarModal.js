@@ -3,6 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "@mui/material/Button";
 import "react-datepicker/dist/react-datepicker.css";
 import {FormGroup, Label} from "reactstrap";
+import YearGraphic from "../graphics/YearGraphic";
 import DayGraphic from "../graphics/DayGraphic";
 
 const CalendarModal = ({
@@ -10,9 +11,9 @@ const CalendarModal = ({
                            onHide,
                            selectedDate,
                            setSelectedDate,
-                           dayFrequency
-                          }) => {
-
+                           dayFrequency,
+                           frequency
+                       }) => {
     const handleClose = () => {
         onHide();
     }
@@ -43,6 +44,7 @@ const CalendarModal = ({
                 <input type="date" id="dateInput" value={selectedDate} onChange={(e) => setSelectedDate(e.target.value)} />
             </FormGroup>
                 <DayGraphic data={dayFrequency}/>
+                <YearGraphic data={frequency}/>
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="contained" style={{backgroundColor: "black"}}

@@ -1,5 +1,3 @@
-import System from "devextreme";
-
 window.config = {
     transpiler: 'plugin-babel',
     meta: {

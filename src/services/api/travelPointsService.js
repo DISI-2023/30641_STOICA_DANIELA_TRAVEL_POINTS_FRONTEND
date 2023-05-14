@@ -65,6 +65,10 @@ const addOffer = async(request) => {
     return await travelPointsAxios.post(`offer`, JSON.stringify(request));
 }
 
+const getYearFrequencyForLandmark = async(year, id) => {
+    return await travelPointsAxios.get(`visit/year-frequency?year=${year}&landmarkId=${id}`);
+}
+
 const getUsersEmailsForActiveOffers = async(offerId) => {
     console.log(`offer/emails?offerId=${offerId}`)
     return await travelPointsAxios.get(`offer/emails?offerId=${offerId}`);
@@ -95,4 +99,5 @@ export {
     deleteOffer,
     addOffer,
     getDayFrequencyForLandmark,
+    getYearFrequencyForLandmark,
 };
