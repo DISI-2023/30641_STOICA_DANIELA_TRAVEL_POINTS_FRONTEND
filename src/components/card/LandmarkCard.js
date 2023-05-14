@@ -35,6 +35,12 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
     const path = useLocation();
     const from = path.state?.from?.pathname;
     const [showCalendar, setShowCalendar] = useState(false);
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [dayFrequency, setDayFrequency] = useState([])
+
+    useEffect(() => {
+        getDayFrequency()
+    }, [selectedDate])
 
     useEffect(() => {
         getOffer()
@@ -85,6 +91,14 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
     const onViewStatistics = () => {
         getYearFrequency();
         setShowCalendar(true);
+    }
+
+    const getDayFrequency = () => {
+        API.getDayFrequencyForLandmark(new Date(selectedDate), landmark.id)
+            .then(response => {
+                setDayFrequency(response.data)
+                console.log(response.data)
+            })
     }
 
     const onAddFav = async (landmark) => {
@@ -163,9 +177,23 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
                 </CardActionArea>
                 <br/>
                 <div className={style.containerButton}>
-                    <Button className={style.cardButton} style={{backgroundColor: "black" , marginLeft :isAdmin && "-70px", width: isAdmin && "45%",  fontSize: isAdmin && "12px"}} onClick={onViewDetails} variant="contained">View Details</Button>
-                    {
-                        isAdmin &&  <Button className={style.cardButton} style={{backgroundColor: "black", width: "45%", marginLeft: "15px", fontSize: "12px" }} variant="contained" onClick={onViewStatistics}>View Statistics</Button>
+                    <Button
+                        className={style.cardButton}
+                        style={{backgroundColor: "black" , marginLeft :isAdmin && "-70px", width: isAdmin && "45%",  fontSize: isAdmin && "12px"}}
+                        onClick={onViewDetails}
+                        variant="contained"
+                    >
+                        View Details
+                    </Button>
+                    {isAdmin &&
+                        <Button
+                            className={style.cardButton}
+                            style={{backgroundColor: "black", width: "45%", marginLeft: "15px", fontSize: "12px" }}
+                            variant="contained"
+                            onClick={onViewStatistics}
+                        >
+                            View Statistics
+                        </Button>
                     }
                 </div>
                 {isAdmin ?
@@ -208,24 +236,26 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
                     </div>
                 }
             </Card>
+            <CalendarModal
+                show={showCalendar}
+                onHide={()=> setShowCalendar(false)}
+                selectedDate={selectedDate}
+                setSelectedDate={setSelectedDate}
+                dayFrequency={dayFrequency}
+                frequency={frequency}
+            />
             <LandmarkDetails
                 show={show}
                 onHide={()=> setShow(false)}
                 landmark={landmark}
                 offer={offer}
             />
-            <CalendarModal
-                show={showCalendar}
-                onHide={()=> setShowCalendar(false)}
-                frequency={frequency}
-            />
+
             <AddOfferModal
                 showOffer={showOffer}
                 onHide={()=>setShowOffer(false)}
                 landmark={data}
             />
-
-            <LandmarkDetails show={show} onHide={()=> setShow(false)} landmark = {landmark}/>
             <EditLandmarkModal
                 show={showEditModal}
                 onHide={toggleEditModal}
