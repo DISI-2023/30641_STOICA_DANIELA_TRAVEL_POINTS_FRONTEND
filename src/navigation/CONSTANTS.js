@@ -1,5 +1,5 @@
-export const ROOT = "/";
-export const HOMEPAGE = "/home";
+export const ROOT = "/landmarks";
+export const HOMEPAGE = "/landmarks";
 export const LOGIN = "/login";
 export const LANDMARKS = '/landmarks';
 export const WISHLIST = '/wishlist';
