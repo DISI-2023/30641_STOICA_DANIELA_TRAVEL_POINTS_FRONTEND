@@ -30,6 +30,7 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
     const [showEditModal, setShowEditModal] = useState(false);
     const [reviewShow, setReviewShow] = useState(false);
     const [offer, setOffer] = useState();
+    const [frequency, setFrequency] = useState([])
     const navigate = useNavigate();
     const path = useLocation();
     const from = path.state?.from?.pathname;
@@ -71,10 +72,18 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
             })
     }
 
+    const getYearFrequency = () => {
+        API.getYearFrequencyForLandmark("2023", landmark.id)
+            .then(response => {
+                setFrequency(response.data);
+            })
+    }
+
     const onViewDetails = () => {
         setShow(true);
     }
     const onViewStatistics = () => {
+        getYearFrequency();
         setShowCalendar(true);
     }
 
@@ -208,6 +217,7 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
             <CalendarModal
                 show={showCalendar}
                 onHide={()=> setShowCalendar(false)}
+                frequency={frequency}
             />
             <AddOfferModal
                 showOffer={showOffer}
