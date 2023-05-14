@@ -70,6 +70,11 @@ const getUsersEmailsForActiveOffers = async(offerId) => {
     return await travelPointsAxios.get(`offer/emails?offerId=${offerId}`);
 }
 
+const getTopLandmarks = async () => {
+    return await travelPointsAxios.get(`landmark/most-visited`)
+}
+
+
 export {
     login,
     deleteLandmark,
@@ -84,5 +89,6 @@ export {
     getUsersEmailsForActiveOffers,
     getOffer,
     deleteOffer,
-    addOffer
+    addOffer,
+    getTopLandmarks
 };
