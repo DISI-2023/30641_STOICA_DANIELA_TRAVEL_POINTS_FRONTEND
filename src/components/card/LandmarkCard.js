@@ -15,6 +15,7 @@ import {OFFER} from "navigation/CONSTANTS";
 import AddReview from "components/forms";
 import EditLandmarkModal from "components/editLandmarkForm/EditLandmarkModal";
 import CalendarModal from './CalendarModal'
+import Base64AudioPlayer from "../sound_player/Base64AudioPlayer";
 
 const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
     const isAdmin = JSON.parse(localStorage.getItem('userDetails'))?.role === "ADMIN";
@@ -35,6 +36,7 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
     const path = useLocation();
     const from = path.state?.from?.pathname;
     const [showCalendar, setShowCalendar] = useState(false);
+    const [isPlayingSound, setIsPlayingSound] = React.useState(false);
 
     useEffect(() => {
         getOffer()
@@ -151,7 +153,10 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div" className={style.title}>
                             {landmark.name}
-                            <VolumeUpIcon style={{marginLeft: "10px"}}/>
+                            <VolumeUpIcon
+                                style={{marginLeft: "10px"}}
+                                onClick={() => setIsPlayingSound(prevState => !prevState)}/>
+                            <Base64AudioPlayer isPlaying={isPlayingSound}/>
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
                             {landmark.location}
