@@ -12,6 +12,7 @@ export function LandmarkContainer() {
     const [category, setCategory] = useState('');
     const [price, setPrice] = useState(0.0);
     const [filter, setFilter] = useState(false);
+    const [showTop, setShowTop] = useState(false);
 
     const getLandmarks = async () => {
         try {
@@ -67,6 +68,8 @@ export function LandmarkContainer() {
                 priceInputChangeHandle={setPrice}
                 onFilter={onFilter}
                 deleteLandmarkButtonHandle={deleteLandmarkButtonHandle}
+                showTop={showTop}
+                setShowTop={setShowTop}
             />
         </div>
     );

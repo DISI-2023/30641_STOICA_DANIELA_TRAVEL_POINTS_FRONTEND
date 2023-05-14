@@ -74,6 +74,10 @@ const getUsersEmailsForActiveOffers = async(offerId) => {
     return await travelPointsAxios.get(`offer/emails?offerId=${offerId}`);
 }
 
+const getTopLandmarks = async () => {
+    return await travelPointsAxios.get(`landmark/most-visited`)
+}
+
 const getDayFrequencyForLandmark = async (date, landmarkId) => {
     console.log(date)
     const year = date.getUTCFullYear();
@@ -98,6 +102,7 @@ export {
     getOffer,
     deleteOffer,
     addOffer,
+    getTopLandmarks,
     getDayFrequencyForLandmark,
     getYearFrequencyForLandmark,
 };
