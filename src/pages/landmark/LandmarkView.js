@@ -6,6 +6,7 @@ import React from "react";
 import Button from "@mui/material/Button";
 import SendEmailModal from "../../components/buttons/add/SendEmailModal";
 import {useEffect, useState} from "react";
+import ViewTopModal from "../../modals/ViewTopModal";
 
 const LandmarkView = ({
                           landmarks,
@@ -26,7 +27,9 @@ const LandmarkView = ({
                           onFilter,
                           reviewShow,
                           onChangeReviewShow,
-                          deleteLandmarkButtonHandle
+                          deleteLandmarkButtonHandle,
+                          showTop,
+                          setShowTop
                       }) => {
     const isAdmin = JSON.parse(localStorage.getItem('userDetails'))?.role === "ADMIN";
     const [showEmail, setShowEmail] = useState(false);
@@ -40,10 +43,21 @@ const LandmarkView = ({
             <label>Category: </label>
             <input placeholder="Category" onChange={(e) => categoryInputChangeHandle(e.target.value)}></input>
             <Button onClick={onFilter}> Filter! </Button>
-            {isAdmin && <AddLandmark onChangeShow={onChangeShow} addLandmark={addLandmark}
-                                     onChangeIsAddedNewLandmark={onChangeIsAddedNewLandmark}/>}
-            {
-                !isAdmin && <Button onClick={onSendEmail} style={{marginLeft: "10%"}}>Make a request</Button>
+            {isAdmin ?
+                <>
+                    <AddLandmark
+                        onChangeShow={onChangeShow}
+                        addLandmark={addLandmark}
+                        onChangeIsAddedNewLandmark={onChangeIsAddedNewLandmark}
+                    />
+                    <Button
+                        style={{width: "12rem", height: "3rem", margin: "1rem", backgroundColor: "black"}}
+                        variant="contained"
+                        onClick={() => setShowTop(true)}>
+                        View Top
+                    </Button>
+                </>
+                : <Button onClick={onSendEmail} style={{marginLeft: "10%"}}>Make a request</Button>
             }
 
             <Row>
@@ -72,6 +86,7 @@ const LandmarkView = ({
                               categoryInputChangeHandle={categoryInputChangeHandle}
                               priceInputChangeHandle={priceInputChangeHandle}/>
             <SendEmailModal showEmail={showEmail} onHide={() => setShowEmail(false)}/>
+            <ViewTopModal  show={showTop} onHide={() => setShowTop(false)}/>
         </div>
     )
 }
