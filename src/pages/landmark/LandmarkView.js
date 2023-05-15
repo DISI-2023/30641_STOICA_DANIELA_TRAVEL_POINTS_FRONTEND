@@ -29,7 +29,8 @@ const LandmarkView = ({
                           onChangeReviewShow,
                           deleteLandmarkButtonHandle,
                           showTop,
-                          setShowTop
+                          setShowTop,
+                          audioInputChangeHandle
                       }) => {
     const isAdmin = JSON.parse(localStorage.getItem('userDetails'))?.role === "ADMIN";
     const [showEmail, setShowEmail] = useState(false);
@@ -84,7 +85,9 @@ const LandmarkView = ({
                               locationInputChangeHandle={locationInputChangeHandle}
                               textDescriptionInputChangeHandle={textDescriptionInputChangeHandle}
                               categoryInputChangeHandle={categoryInputChangeHandle}
-                              priceInputChangeHandle={priceInputChangeHandle}/>
+                              priceInputChangeHandle={priceInputChangeHandle}
+                              audioInputChangeHandle={audioInputChangeHandle}
+            />
             <SendEmailModal showEmail={showEmail} onHide={() => setShowEmail(false)}/>
             <ViewTopModal  show={showTop} onHide={() => setShowTop(false)}/>
         </div>

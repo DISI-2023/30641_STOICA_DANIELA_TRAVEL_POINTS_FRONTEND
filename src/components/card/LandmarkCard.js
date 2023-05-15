@@ -11,7 +11,6 @@ import * as API from "services/api/travelPointsService";
 import LandmarkDetails from "pages/landmark/LandmarkDetails";
 import AddOfferModal from "./AddOfferModal"
 import {useLocation, useNavigate} from "react-router-dom";
-import {OFFER} from "navigation/CONSTANTS";
 import AddReview from "components/forms";
 import EditLandmarkModal from "components/editLandmarkForm/EditLandmarkModal";
 import CalendarModal from './CalendarModal'
@@ -22,7 +21,6 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
     const [landmark, setLandmark] = useState(data);
     const [show, setShow] = useState(false);
     const [showOffer, setShowOffer] = useState(false);
-
     const [name, setName] = useState('');
     const [location, setLocation] = useState('');
     const [textDescription, setTextDescription] = useState('');
@@ -31,14 +29,15 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
     const [showEditModal, setShowEditModal] = useState(false);
     const [reviewShow, setReviewShow] = useState(false);
     const [offer, setOffer] = useState();
-    const [frequency, setFrequency] = useState([])
+    const [frequency, setFrequency] = useState([]);
     const navigate = useNavigate();
     const path = useLocation();
     const from = path.state?.from?.pathname;
     const [showCalendar, setShowCalendar] = useState(false);
-    const [isPlayingSound, setIsPlayingSound] = React.useState(false);
+    const [isPlayingSound, setIsPlayingSound] = useState(false);
     const [selectedDate, setSelectedDate] = useState(new Date());
-    const [dayFrequency, setDayFrequency] = useState([])
+    const [dayFrequency, setDayFrequency] = useState([]);
+    const [canPlaySound, setCanPlaySound] = useState(false);
 
     useEffect(() => {
         getDayFrequency()
@@ -154,6 +153,12 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
         return description;
     }
 
+    const soundIconHandle = (event) => {
+        event.preventDefault();
+        setCanPlaySound(true);
+        setIsPlayingSound(prevState => !prevState);
+    }
+
     return (
         <div>
             <Card sx={{width: 325, height: 520}} className={style.card}>
@@ -169,8 +174,12 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
                             {landmark.name}
                             <VolumeUpIcon
                                 style={{marginLeft: "10px"}}
-                                onClick={() => setIsPlayingSound(prevState => !prevState)}/>
-                            <Base64AudioPlayer isPlaying={isPlayingSound}/>
+                                onClick={soundIconHandle}/>
+                            <Base64AudioPlayer
+                                isPlaying={isPlayingSound}
+                                audio={landmark.audioDescription}
+                                canPlay={canPlaySound}
+                            />
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
                             {landmark.location}

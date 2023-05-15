@@ -17,7 +17,8 @@ const AddLandmarkModal = ({
                               locationInputChangeHandle,
                               textDescriptionInputChangeHandle,
                               categoryInputChangeHandle,
-                              priceInputChangeHandle
+                              priceInputChangeHandle,
+                              audioInputChangeHandle,
                           }) => {
     const [requiredMessage, setRequiredMessage] = useState('');
 
@@ -100,8 +101,15 @@ const AddLandmarkModal = ({
                         required
                     />
                     <br/>
-                    <label className="form-label" htmlFor="customFile">Choose audio file</label>
-                    <input type="file" className="form-control" id="customFile"/>
+                    <label className="form-label" htmlFor="audioFile">Choose audio file</label>
+                    <input
+                        type="file"
+                        className="form-control"
+                        id="audioFile"
+                        accept="audio/mp3"
+                        onChange={audioInputChangeHandle}
+                        required
+                    />
                     <br/>
                     <Input
                         style={{resize: "none", textDecoration: "none"}}

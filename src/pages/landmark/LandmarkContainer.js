@@ -13,6 +13,7 @@ export function LandmarkContainer() {
     const [price, setPrice] = useState(0.0);
     const [filter, setFilter] = useState(false);
     const [showTop, setShowTop] = useState(false);
+    const [audio, setAudio] =  useState();
 
     const getLandmarks = async () => {
         try {
@@ -23,13 +24,34 @@ export function LandmarkContainer() {
         }
     }
 
+    const audioInputChangeHandle = (event) => {
+        event.preventDefault();
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+               setAudio(reader.result.substring(23));
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
     const addLandmark = async () => {
-        const request = {name: name, location: location, textDescription: textDescription, category: category, price: price}
+        const request = {
+            name: name,
+            location: location,
+            textDescription: textDescription,
+            category: category,
+            price: price,
+            audioDescription: audio
+        }
+
         setName('')
         setLocation('')
         setTextDescription('')
         setCategory('')
         setPrice(0.0)
+        setAudio(undefined)
         return await API.addLandmark(request)
     }
 
@@ -70,6 +92,7 @@ export function LandmarkContainer() {
                 deleteLandmarkButtonHandle={deleteLandmarkButtonHandle}
                 showTop={showTop}
                 setShowTop={setShowTop}
+                audioInputChangeHandle={audioInputChangeHandle}
             />
         </div>
     );
