@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef} from 'react';
 
 const Base64AudioPlayer = (props) => {
-  const audioRef = React.useRef(null);
+  const audioRef = useRef(null);
 
   const handleTogglePlay = () => {
     if (audioRef.current) {
@@ -24,12 +24,14 @@ const Base64AudioPlayer = (props) => {
       const blob = new Blob([uint8Array], { type: 'audio/mp3' });
       const audioUrl = URL.createObjectURL(blob);
       audioRef.current.src = audioUrl;
+      audioRef.current.pause();
     }
   }, [props.audio]);
 
+
   useEffect(() => {
-      handleTogglePlay()
-  }, [props.isPlaying])
+      props.canPlay && handleTogglePlay()
+  }, [props.isPlaying, props.canPlay])
 
   return (
       <audio ref={audioRef}></audio>
