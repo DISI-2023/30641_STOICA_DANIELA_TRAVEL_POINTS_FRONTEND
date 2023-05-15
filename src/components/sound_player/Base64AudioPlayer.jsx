@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {AUDIO} from "./audio";
 
 const Base64AudioPlayer = (props) => {
   const audioRef = React.useRef(null);
@@ -16,7 +15,7 @@ const Base64AudioPlayer = (props) => {
 
   useEffect(() => {
     if (audioRef.current) {
-      const binaryString = atob(AUDIO);
+      const binaryString = atob(props.audio);
       const arrayBuffer = new ArrayBuffer(binaryString.length);
       const uint8Array = new Uint8Array(arrayBuffer);
       for (let i = 0; i < binaryString.length; i++) {
@@ -26,7 +25,7 @@ const Base64AudioPlayer = (props) => {
       const audioUrl = URL.createObjectURL(blob);
       audioRef.current.src = audioUrl;
     }
-  }, []);
+  }, [props.audio]);
 
   useEffect(() => {
       handleTogglePlay()

@@ -11,7 +11,6 @@ import * as API from "services/api/travelPointsService";
 import LandmarkDetails from "pages/landmark/LandmarkDetails";
 import AddOfferModal from "./AddOfferModal"
 import {useLocation, useNavigate} from "react-router-dom";
-import {OFFER} from "navigation/CONSTANTS";
 import AddReview from "components/forms";
 import EditLandmarkModal from "components/editLandmarkForm/EditLandmarkModal";
 import CalendarModal from './CalendarModal'
@@ -170,7 +169,7 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
                             <VolumeUpIcon
                                 style={{marginLeft: "10px"}}
                                 onClick={() => setIsPlayingSound(prevState => !prevState)}/>
-                            <Base64AudioPlayer isPlaying={isPlayingSound}/>
+                            <Base64AudioPlayer isPlaying={isPlayingSound} audio={landmark.audioDescription}/>
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
                             {landmark.location}
