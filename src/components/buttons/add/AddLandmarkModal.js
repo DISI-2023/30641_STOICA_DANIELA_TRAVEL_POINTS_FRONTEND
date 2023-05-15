@@ -19,6 +19,7 @@ const AddLandmarkModal = ({
                               categoryInputChangeHandle,
                               priceInputChangeHandle,
                               audioInputChangeHandle,
+                              imageInputChangeHandle
                           }) => {
     const [requiredMessage, setRequiredMessage] = useState('');
 
@@ -88,7 +89,14 @@ const AddLandmarkModal = ({
                     />
                     <br/>
                     <label className="form-label" htmlFor="customFile">Choose image file</label>
-                    <input type="file" className="form-control" id="customFile"/>
+                    <input
+                        type="file"
+                        className="form-control"
+                        id="customFile"
+                        // accept="audio/mp3"
+                        onChange={imageInputChangeHandle}
+                        required
+                    />
                     <br/>
                     <Input
                         style={{resize: "none", textDecoration: "none"}}
