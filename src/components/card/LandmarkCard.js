@@ -113,13 +113,14 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
 
     const editLandmark = async () => {
         const updatedLandmark = {
-            id: landmark.id,
+            ...landmark,
             name: name,
             location: location,
             textDescription: textDescription,
             category: category,
             price: price
         }
+
         setName('')
         setLocation('')
         setTextDescription('')
