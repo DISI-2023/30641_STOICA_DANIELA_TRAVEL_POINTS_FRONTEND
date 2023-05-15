@@ -93,7 +93,7 @@ const AddLandmarkModal = ({
                         type="file"
                         className="form-control"
                         id="customFile"
-                        // accept="audio/mp3"
+                        accept="image/jpeg"
                         onChange={imageInputChangeHandle}
                         required
                     />
