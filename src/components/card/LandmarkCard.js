@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import {Button, CardActionArea, CardMedia} from "@mui/material";
 import style from './LandmarkCard.module.css';
-import mock from '../../mock.png'
+import NO_IMAGE_AVAILABLE from 'assets/images/NoImageAvailable.png'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import React, {useEffect, useState} from 'react';
@@ -165,7 +165,7 @@ const LandmarkCard = ({data, deleteLandmarkButtonHandle}) => {
                 <CardActionArea>
                     <CardMedia  // for now the landmark's image is not saved properly.
                         component="img"
-                        image={mock}
+                        image={landmark.image ? "data:image/jpeg;base64," + landmark.image : NO_IMAGE_AVAILABLE}
                         alt="green iguana"
                         className={style.image}
                     />
