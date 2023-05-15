@@ -4,7 +4,6 @@ import {HOMEPAGE, LOGIN, ROOT, REGISTER, LANDMARKS, WISHLIST} from "navigation/C
 import {NotFound} from './NotFound';
 import RequireAuth from "./RequireAuth";
 import Login from 'pages/login';
-import Home from 'pages/home';
 import Register from 'pages/register';
 import Landmarks from 'pages/landmark'
 import Wishlist from 'pages/wishlist'
@@ -19,9 +18,9 @@ export const RouterConfig = () => {
             <Router >
                 <Routes>
                     {/* public routes */}
-                    <Route path={ROOT} element={<Home />} />
+                    <Route path={ROOT} element={<Landmarks />} />
                     <Route path={LOGIN} element={<Login />} />
-                    <Route path={HOMEPAGE} element={<Home />} />
+                    <Route path={HOMEPAGE} element={<Landmarks />} />
                     <Route path={REGISTER} element={<Register />} />
                     <Route path={LANDMARKS} element={<Landmarks />} />
 
